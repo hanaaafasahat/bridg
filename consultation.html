@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مشاوره رایگان | بریجینو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="navbar.js"></script>
+<style>
+.consult-section {
+  background: linear-gradient(180deg, #FFFFFF 0%, #EEF4FF 50%, #FFFFFF 100%);
+  padding: 100px 0;
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+}
+.consult-container {
+  max-width: 1100px; margin: 0 auto; padding: 0 5vw;
+  display: flex; flex-direction: column; gap: 56px;
+}
+
+/* تیتر */
+.consult-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.consult-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 999px;
+  border: 1px solid #A5D6A7; background: #E8F5E9;
+  color: #2E7D32; font-size: 13px; font-weight: 700;
+}
+.consult-title { font-size: 36px; font-weight: 700; color: #1A1A2E; margin: 0; }
+.consult-sub { font-size: 17px; color: #4A5568; max-width: 560px; line-height: 1.8; text-align: center; }
+
+/* مزایا */
+.consult-perks { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+.consult-perk { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4A5568; }
+.consult-perk i { color: #1A3A6E; font-size: 20px; }
+
+/* بدنه دو ستونه */
+.consult-body { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+/* ── فرم ── */
+.consult-form-wrap {
+  background: #fff;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 8px 40px rgba(26,58,110,0.08);
+  display: flex; flex-direction: column; gap: 20px;
+}
+.consult-form-title { font-size: 20px; font-weight: 700; color: #1A1A2E; }
+.consult-form-sub { font-size: 14px; color: #4A5568; margin-top: -10px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 14px; font-weight: 700; color: #1A1A2E; }
+
+.form-input, .form-select, .form-textarea {
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 15px; color: #1A1A2E;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px; padding: 13px 16px;
+  outline: none; width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff; direction: rtl;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: #aaa; }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: #1A3A6E;
+  box-shadow: 0 0 0 3px rgba(26,58,110,0.1);
+}
+.form-input.error, .form-select.error, .form-textarea.error {
+  border-color: #C0392B;
+}
+.form-error { font-size: 12px; color: #C0392B; display: none; }
+.form-error.show { display: block; }
+
+.form-textarea { resize: vertical; min-height: 90px; }
+.form-select { appearance: none; cursor: pointer; }
+
+.btn-submit {
+  width: 100%; padding: 16px;
+  background: #1A3A6E; color: #fff;
+  font-family: 'Vazirmatn', sans-serif; font-weight: 700; font-size: 16px;
+  border: none; border-radius: 12px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background 0.3s;
+}
+.btn-submit:hover { background: #C0392B; }
+.btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.form-success {
+  display: none; background: #E8F5E9; border-radius: 10px;
+  padding: 14px 18px; color: #2E7D32; font-size: 15px; font-weight: 700;
+  text-align: center;
+}
+.form-success.show { display: block; }
+
+/* ── ستون چپ ── */
+.consult-contact { display: flex; flex-direction: column; gap: 20px; }
+.consult-contact-title { font-size: 20px; font-weight: 700; color: #1A1A2E; }
+
+.contact-card {
+  border-radius: 16px; padding: 24px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.card-telegram { background: #EBF6FC; border: 1px solid #A9D6EC; }
+.card-phone    { background: #EEF4FF; border: 1px solid #C5D8F5; }
+
+.contact-card-head { display: flex; align-items: center; gap: 12px; }
+.contact-card-head i { font-size: 28px; }
+.ph-icon { color: #1A3A6E; }
+.contact-card-name { font-size: 16px; font-weight: 700; color: #1A1A2E; }
+.contact-card-num  { font-size: 15px; color: #4A5568; }
+.contact-card-hours { font-size: 13px; color: #888; }
+
+.btn-tg {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 20px; border-radius: 10px;
+  background: #0088cc; color: #fff;
+  font-family: 'Vazirmatn', sans-serif; font-weight: 700; font-size: 15px;
+  text-decoration: none; transition: background 0.3s;
+}
+.btn-tg:hover { background: #006699; }
+
+.consult-note {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: #888;
+}
+.consult-note i { font-size: 16px; }
+
+/* انیمیشن */
+.s4-anim { opacity: 0; transform: translateY(40px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.s4-anim.slide-right { transform: translateX(40px); }
+.s4-anim.slide-left  { transform: translateX(-40px); }
+.s4-anim.visible { opacity: 1; transform: translate(0); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .consult-title { font-size: 26px; }
+  .consult-body { grid-template-columns: 1fr; }
+  .consult-perks { gap: 16px; }
+  .consult-form-wrap { padding: 24px 18px; }
+}
+</style>
+
+<section class="consult-section" id="consult-section">
+  <div class="consult-container">
+
+    <!-- تیتر -->
+    <div class="consult-header s4-anim">
+      <span class="consult-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#2E7D32"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        کاملاً رایگان
+      </span>
+      <h2 class="consult-title">مشاوره رایگان با متخصصان بریجینو</h2>
+      <p class="consult-sub">تیم مشاوران ما آماده‌اند تا بهترین مسیر یادگیری را برای شما پیدا کنند — همین امروز تماس بگیرید</p>
+    </div>
+
+    <!-- مزایا -->
+    <div class="consult-perks s4-anim">
+      <span class="consult-perk"><i class="ti ti-clock"></i> پاسخ در کمتر از ۲۴ ساعت</span>
+      <span class="consult-perk"><i class="ti ti-shield-check"></i> بدون تعهد و هزینه</span>
+      <span class="consult-perk"><i class="ti ti-user-heart"></i> مشاور اختصاصی برای شما</span>
+    </div>
+
+    <!-- بدنه اصلی -->
+    <div class="consult-body">
+
+      <!-- ستون راست: فرم -->
+      <div class="consult-form-wrap s4-anim slide-right" id="consult-form-wrap">
+        <div class="consult-form-title">فرم درخواست مشاوره</div>
+        <p class="consult-form-sub">فرم را پر کنید — مشاور ما با شما تماس می‌گیرد</p>
+
+        <div class="form-group">
+          <label class="form-label" for="cf-name">نام و نام خانوادگی <span style="color:#C0392B">*</span></label>
+          <input class="form-input" id="cf-name" type="text" placeholder="مثلاً: علی محمدی" autocomplete="off">
+          <span class="form-error" id="cf-name-err">این فیلد الزامی است</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="cf-phone">شماره موبایل <span style="color:#C0392B">*</span></label>
+          <input class="form-input" id="cf-phone" type="tel" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+          <span class="form-error" id="cf-phone-err">این فیلد الزامی است</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="cf-age">بازه سنی</label>
+          <select class="form-select" id="cf-age">
+            <option value="" disabled selected>انتخاب کنید</option>
+            <option>زیر ۱۲ سال</option>
+            <option>۱۲ تا ۱۸ سال</option>
+            <option>۱۸ تا ۳۰ سال</option>
+            <option>بالای ۳۰ سال</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="cf-time">زمان مناسب برای تماس</label>
+          <select class="form-select" id="cf-time">
+            <option value="" disabled selected>انتخاب کنید</option>
+            <option>صبح (۸ تا ۱۲)</option>
+            <option>ظهر (۱۲ تا ۱۶)</option>
+            <option>عصر (۱۶ تا ۲۰)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="cf-note">هدف یا سوال شما (اختیاری)</label>
+          <textarea class="form-textarea" id="cf-note" placeholder="مثلاً: می‌خوام برای آیلتس آماده بشم..."></textarea>
+        </div>
+
+        <button class="btn-submit" id="cf-submit" type="button" onclick="submitConsultForm()">
+          <i class="ti ti-send"></i>
+          ارسال درخواست مشاوره
+        </button>
+
+        <div class="form-success" id="cf-success">
+          ✓ درخواست شما ثبت شد! مشاور ما به زودی تماس می‌گیرد
+        </div>
+      </div>
+
+      <!-- ستون چپ: تماس مستقیم -->
+      <div class="consult-contact s4-anim slide-left">
+        <div class="consult-contact-title">یا مستقیم با ما در تماس باشید</div>
+
+        <!-- تلگرام -->
+        <div class="contact-card card-telegram">
+          <div class="contact-card-head">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#0088cc"><path d="M23.91 3.79L20.3 20.84c-.25 1.21-.98 1.5-2 .94l-5.5-4.07-2.66 2.57c-.3.3-.55.55-1.1.55-.72 0-.6-.27-.84-.95L6.3 13.7l-5.45-1.7c-1.18-.35-1.2-1.18.26-1.75L22.01 2.4c.99-.41 1.93.22 1.9 1.39z"/></svg>
+            <div>
+              <div class="contact-card-name">تلگرام بریجینو</div>
+              <div class="contact-card-num">@bridge_languages</div>
+            </div>
+          </div>
+          <a class="btn-tg" href="https://t.me/bridgino_official" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M23.91 3.79L20.3 20.84c-.25 1.21-.98 1.5-2 .94l-5.5-4.07-2.66 2.57c-.3.3-.55.55-1.1.55-.72 0-.6-.27-.84-.95L6.3 13.7l-5.45-1.7c-1.18-.35-1.2-1.18.26-1.75L22.01 2.4c.99-.41 1.93.22 1.9 1.39z"/></svg>
+            عضویت در تلگرام
+          </a>
+        </div>
+
+        <!-- تلفن -->
+        <div class="contact-card card-phone">
+          <div class="contact-card-head">
+            <i class="ti ti-phone ph-icon"></i>
+            <div>
+              <div class="contact-card-name">تماس تلفنی</div>
+              <div class="contact-card-num">۰۲۱-۰۰۰۰۰۰۰۰</div>
+            </div>
+          </div>
+          <div class="contact-card-hours"><i class="ti ti-clock" style="font-size:14px;margin-left:4px;"></i>شنبه تا پنج‌شنبه | ۸ صبح تا ۸ شب</div>
+        </div>
+
+        <div class="consult-note">
+          <i class="ti ti-info-circle"></i>
+          تمام مشاوره‌ها کاملاً رایگان و بدون هیچ تعهدی هستند
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+// Section 4 animations
+(function(){
+  const els = document.querySelectorAll('.s4-anim');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+})();
+
+// Form validation & submit
+function submitConsultForm() {
+  const name  = document.getElementById('cf-name');
+  const phone = document.getElementById('cf-phone');
+  const btn   = document.getElementById('cf-submit');
+  const success = document.getElementById('cf-success');
+  let valid = true;
+
+  // Reset errors
+  [name, phone].forEach(f => { f.classList.remove('error'); });
+  document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
+
+  if (!name.value.trim()) {
+    name.classList.add('error');
+    document.getElementById('cf-name-err').classList.add('show');
+    valid = false;
+  }
+  if (!phone.value.trim()) {
+    phone.classList.add('error');
+    document.getElementById('cf-phone-err').classList.add('show');
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin 1s linear infinite"></i> در حال ارسال...';
+
+  setTimeout(() => {
+    btn.style.display = 'none';
+    success.classList.add('show');
+  }, 1500);
+}
+</script>
+
+
+</body>
+</html>

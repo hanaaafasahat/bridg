@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دوره‌ها | بریجینو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="navbar.js"></script>
+    
+<style>
+.courses-section {
+  background: #F8FAFF;
+  padding: 100px 0;
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+}
+.courses-container {
+  max-width: 1180px; margin: 0 auto; padding: 0 5vw;
+  display: flex; flex-direction: column; gap: 48px;
+}
+
+/* تیتر */
+.courses-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.courses-title { font-size: 36px; font-weight: 700; color: #1A1A2E; margin: 0; }
+.courses-divider {
+  width: 60px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, #1A3A6E, #C0392B);
+}
+.courses-sub { font-size: 17px; color: #4A5568; }
+
+/* فیلترها */
+.courses-filters { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.filter-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.filter-label { font-size: 13px; font-weight: 700; color: #888; white-space: nowrap; }
+.filter-btn {
+  padding: 8px 20px; border-radius: 20px;
+  border: 1.5px solid #E2E8F0; background: #fff;
+  color: #4A5568; font-family: 'Vazirmatn', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s ease; white-space: nowrap;
+}
+.filter-btn:hover { border-color: #1A3A6E; color: #1A3A6E; }
+.filter-btn.active { background: #1A3A6E; border-color: #1A3A6E; color: #fff; }
+
+/* گرید کارت‌ها */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* کارت */
+.course-card {
+  background: #fff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(26,58,110,0.06);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.35s ease;
+}
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(26,58,110,0.12);
+}
+.course-card.filtered-out {
+  opacity: 0.25;
+  transform: scale(0.97);
+  pointer-events: none;
+}
+
+/* header کارت */
+.course-card-header {
+  height: 80px; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-beginner     { background: #E8F5E9; }
+.header-intermediate { background: #FFF8E1; }
+.header-advanced     { background: #FFEBEE; }
+
+.badge-level {
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 700;
+}
+.badge-beginner     { background: #C8E6C9; color: #2E7D32; }
+.badge-intermediate { background: #FFE0B2; color: #E65100; }
+.badge-advanced     { background: #FFCDD2; color: #C0392B; }
+
+.badge-age {
+  padding: 4px 10px; border-radius: 20px;
+  background: #EEF4FF; color: #1A3A6E;
+  font-size: 11px; font-weight: 700;
+}
+.badge-popular {
+  padding: 4px 10px; border-radius: 20px;
+  background: #FFF3E0; color: #E65100;
+  font-size: 11px; font-weight: 700;
+}
+
+/* بدنه کارت */
+.course-card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.course-name { font-size: 16px; font-weight: 700; color: #1A1A2E; line-height: 1.4; }
+.course-desc { font-size: 13px; color: #4A5568; line-height: 1.7; flex: 1; }
+.course-meta { display: flex; flex-direction: column; gap: 5px; margin-top: 4px; }
+.course-meta-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #888; }
+.course-meta-item i { font-size: 14px; color: #1A3A6E; }
+
+/* footer کارت */
+.course-card-footer {
+  border-top: 1px solid #F0F0F0;
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.course-price { font-size: 15px; font-weight: 700; color: #1A3A6E; }
+.btn-enroll {
+  padding: 8px 20px; border-radius: 8px;
+  background: #1A3A6E; color: #fff;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 13px; font-weight: 700;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.3s;
+}
+.btn-enroll:hover { background: #C0392B; }
+
+/* دکمه پایین */
+.courses-cta { display: flex; justify-content: center; }
+.btn-courses-consult {
+  padding: 14px 36px; border-radius: 12px;
+  border: 2px solid #1A3A6E; color: #1A3A6E;
+  background: transparent;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 15px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: all 0.3s;
+}
+.btn-courses-consult:hover { background: #1A3A6E; color: #fff; }
+
+/* انیمیشن ورود */
+.s5-anim { opacity: 0; transform: translateY(36px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.s5-anim.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1024px) { .courses-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 768px) {
+  .courses-title { font-size: 26px; }
+  .courses-grid { grid-template-columns: 1fr; }
+  .filter-row { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; width: 100%; padding-bottom: 4px; }
+  .courses-filters { align-items: flex-start; }
+}
+</style>
+
+<section class="courses-section" id="courses-section">
+  <div class="courses-container">
+
+    <!-- تیتر -->
+    <div class="courses-header s5-anim">
+      <h2 class="courses-title">دوره‌های آموزشی بریجینو</h2>
+      <div class="courses-divider"></div>
+      <p class="courses-sub">دوره‌هایی برای هر سن، هر سطح و هر هدف</p>
+    </div>
+
+
+    <!-- گرید -->
+    <div class="courses-grid" id="courses-grid">
+
+      <!-- کارت ۱ -->
+      <div class="course-card s5-anim" data-card-level="beginner" data-card-age="kids">
+        <div class="course-card-header header-beginner">
+          <span class="badge-level badge-beginner">مبتدی</span>
+          <span class="badge-age">کودکان</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">انگلیسی پایه برای کودکان</div>
+          <p class="course-desc">با روش‌های بازی‌محور و داستان‌گویی، کودکان به‌طور طبیعی با زبان انگلیسی آشنا می‌شوند. محیط شاد و تعاملی، یادگیری را به یک ماجراجویی تبدیل می‌کند.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۳ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۳ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> حضوری و آنلاین</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۲ -->
+      <div class="course-card s5-anim" data-card-level="beginner" data-card-age="teens">
+        <div class="course-card-header header-beginner">
+          <span class="badge-level badge-beginner">مبتدی</span>
+          <span class="badge-age">نوجوانان</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">انگلیسی نوجوانان — سطح پایه</div>
+          <p class="course-desc">پایه‌ای محکم برای نوجوانانی که می‌خواهند اعتمادبه‌نفس زبانی خود را بسازند. تمرکز بر مکالمه، گرامر پایه و مهارت‌های مدرسه‌ای.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۴ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۲ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> حضوری و آنلاین</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۳ -->
+      <div class="course-card s5-anim" data-card-level="beginner" data-card-age="adults">
+        <div class="course-card-header header-beginner">
+          <span class="badge-level badge-beginner">مبتدی تا متوسط</span>
+          <span class="badge-age">بزرگسالان</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">General English — بزرگسالان</div>
+          <p class="course-desc">جامع‌ترین دوره برای بزرگسالانی که از صفر شروع می‌کنند یا می‌خواهند پایه‌شان را مستحکم کنند. چهار مهارت اصلی زبان در کنار هم آموزش داده می‌شود.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۶ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۳ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> حضوری و آنلاین</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۴ -->
+      <div class="course-card s5-anim" data-card-level="intermediate" data-card-age="adults">
+        <div class="course-card-header header-intermediate">
+          <span class="badge-level badge-intermediate">متوسط</span>
+          <span class="badge-age">بزرگسالان</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">مکالمه روزمره (Conversation)</div>
+          <p class="course-desc">برای کسانی که گرامر می‌دانند اما در صحبت کردن مکث می‌کنند. جلسات گفتگومحور با موضوعات واقعی روز، روانی مکالمه را به سرعت بالا می‌برد.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۳ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۲ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> آنلاین</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۵ -->
+      <div class="course-card s5-anim" data-card-level="intermediate" data-card-age="adults">
+        <div class="course-card-header header-intermediate">
+          <span class="badge-level badge-intermediate">متوسط تا پیشرفته</span>
+          <span class="badge-age">بزرگسالان</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">انگلیسی تجاری (Business English)</div>
+          <p class="course-desc">زبان حرفه‌ای محیط کار را بیاموزید؛ از ایمیل‌نویسی و جلسات رسمی گرفته تا مذاکره و ارائه. مناسب مدیران، کارمندان و کارآفرینان.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۴ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۲ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> آنلاین و حضوری</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۶ — پرطرفدار -->
+      <div class="course-card s5-anim" data-card-level="advanced" data-card-age="adults">
+        <div class="course-card-header header-advanced">
+          <span class="badge-level badge-advanced">پیشرفته</span>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="badge-popular">پرطرفدار ⭐</span>
+            <span class="badge-age">بزرگسالان</span>
+          </div>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">آمادگی آیلتس (IELTS)</div>
+          <p class="course-desc">با برنامه‌ریزی دقیق و تمرین‌های هدفمند، نمره موردنظرتان در آیلتس را بگیرید. تمرکز بر هر چهار مهارت آزمون به همراه استراتژی‌های امتحانی.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۶ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۴ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> حضوری و آنلاین</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۷ -->
+      <div class="course-card s5-anim" data-card-level="advanced" data-card-age="adults">
+        <div class="course-card-header header-advanced">
+          <span class="badge-level badge-advanced">پیشرفته</span>
+          <span class="badge-age">بزرگسالان</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">آمادگی تافل (TOEFL)</div>
+          <p class="course-desc">دوره‌ای فشرده و هدفمند برای موفقیت در آزمون TOEFL iBT. شبیه‌سازی شرایط آزمون واقعی، بازخورد دقیق اساتید و تمرین مستمر.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۵ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۳ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> آنلاین</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۸ -->
+      <div class="course-card s5-anim" data-card-level="advanced" data-card-age="kids">
+        <div class="course-card-header header-advanced">
+          <span class="badge-level badge-advanced">پیشرفته</span>
+          <span class="badge-age">کودکان</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-name">کودکان پیشرفته — Junior Advanced</div>
+          <p class="course-desc">برای کودکانی که پایه قوی دارند و آماده ورود به سطح بین‌المللی هستند. مکالمه پیشرفته، نگارش خلاق و آشنایی با ادبیات کودکانه انگلیسی.</p>
+          <div class="course-meta">
+            <span class="course-meta-item"><i class="ti ti-clock"></i> مدت: ۴ ماه</span>
+            <span class="course-meta-item"><i class="ti ti-calendar"></i> ۳ جلسه در هفته</span>
+            <span class="course-meta-item"><i class="ti ti-device-laptop"></i> حضوری</span>
+          </div>
+        </div>
+        <div class="course-card-footer">
+          <span class="course-price">تماس بگیرید</span>
+          <a href="consultation.html" class="btn-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA پایین -->
+    <div class="courses-cta s5-anim">
+      <a href="consultation.html" class="btn-courses-consult">
+        مطمئن نیستی کدوم دوره مناسبته؟ مشاوره رایگان بگیر
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// Section 5 — IntersectionObserver
+(function(){
+  const els = document.querySelectorAll('.s5-anim');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+})();
+
+// Filter logic — با data attribute های مجزا برای دکمه‌ها و کارت‌ها
+(function(){
+  let activeLevel = 'all', activeAge = 'all';
+
+  function applyFilters() {
+    document.querySelectorAll('.course-card').forEach(card => {
+      const lvl = card.dataset.cardLevel;
+      const age = card.dataset.cardAge;
+      const lvlOk = activeLevel === 'all' || lvl === activeLevel;
+      const ageOk = activeAge  === 'all' || age === activeAge;
+      if (lvlOk && ageOk) {
+        card.classList.remove('filtered-out');
+      } else {
+        card.classList.add('filtered-out');
+      }
+    });
+  }
+
+  // دکمه‌های فیلتر سطح
+  document.querySelectorAll('#level-filter-row .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#level-filter-row .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeLevel = btn.dataset.filterLevel;
+      applyFilters();
+    });
+  });
+
+  // دکمه‌های فیلتر سن
+  document.querySelectorAll('#age-filter-row .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#age-filter-row .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeAge = btn.dataset.filterAge;
+      applyFilters();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

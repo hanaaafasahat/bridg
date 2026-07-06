@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقویم ترمی | بریجینو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="navbar.js"></script>
+     
+<style>
+.cal-section {
+  background: #F8F9FA;
+  padding: 100px 0;
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+}
+.cal-container {
+  max-width: 1180px; margin: 0 auto; padding: 0 5vw;
+  display: flex; flex-direction: column; gap: 48px;
+}
+
+/* تیتر */
+.cal-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.cal-title { font-size: 36px; font-weight: 700; color: #1A1A2E; margin: 0; }
+.cal-divider { width: 60px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1A3A6E,#C0392B); }
+.cal-sub { font-size: 17px; color: #4A5568; }
+
+/* فیلتر */
+.cal-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.cal-filter-btn {
+  padding: 8px 20px; border-radius: 20px;
+  border: 1.5px solid #E2E8F0; background: #fff;
+  color: #4A5568; font-family: 'Vazirmatn', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s ease; white-space: nowrap;
+}
+.cal-filter-btn:hover { border-color: #1A3A6E; color: #1A3A6E; }
+.cal-filter-btn.active-all   { background: #1A3A6E; border-color: #1A3A6E; color: #fff; }
+.cal-filter-btn.active-open  { background: #4CAF50; border-color: #4CAF50; color: #fff; }
+.cal-filter-btn.active-ltd   { background: #FF9800; border-color: #FF9800; color: #fff; }
+.cal-filter-btn.active-early { background: #1A3A6E; border-color: #1A3A6E; color: #fff; }
+
+/* گرید */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+
+/* کارت */
+.cal-card {
+  background: #fff;
+  border: 1px solid #E8E8E8;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.35s ease;
+  position: relative;
+}
+.cal-card:not(.full):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(26,58,110,0.10);
+}
+.cal-card.cal-filtered-out { opacity: 0.2; transform: scale(0.97); }
+
+/* نوار رنگی سمت راست */
+.cal-card.status-open  { border-right: 4px solid #4CAF50; }
+.cal-card.status-ltd   { border-right: 4px solid #FF9800; }
+.cal-card.status-full  { border-right: 4px solid #C0392B; }
+.cal-card.status-early { border-right: 4px solid #1A3A6E; }
+
+/* header */
+.cal-card-header { padding: 16px 16px 10px; display: flex; flex-direction: column; gap: 8px; }
+.cal-card-title-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.cal-card-name { font-size: 15px; font-weight: 700; color: #1A1A2E; line-height: 1.4; flex: 1; }
+
+.badge-status {
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 700; white-space: nowrap; flex-shrink: 0;
+}
+.bs-open  { background: #E8F5E9; color: #2E7D32; }
+.bs-ltd   { background: #FFF8E1; color: #F57F17; }
+.bs-full  { background: #FFEBEE; color: #C0392B; }
+.bs-early { background: #EEF4FF; color: #1A3A6E; }
+
+.cal-badges-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge-lv {
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 700;
+}
+.blv-beg  { background: #E8F5E9; color: #2E7D32; }
+.blv-int  { background: #FFF8E1; color: #E65100; }
+.blv-adv  { background: #FFEBEE; color: #C0392B; }
+.badge-age-sm {
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 700;
+  background: #F4F4F4; color: #666;
+}
+
+/* بدنه */
+.cal-card-body { padding: 10px 16px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.cal-meta-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #888; }
+.cal-meta-item i { font-size: 14px; color: #1A3A6E; flex-shrink: 0; }
+
+/* progress bar */
+.cap-wrap { margin-top: 8px; display: flex; flex-direction: column; gap: 5px; }
+.cap-label { font-size: 11px; color: #888; display: flex; justify-content: space-between; }
+.cap-track { height: 6px; border-radius: 3px; background: #F0F0F0; overflow: hidden; }
+.cap-fill  { height: 100%; border-radius: 3px; width: 0%; transition: width 1s ease-out; }
+.cap-green  { background: #4CAF50; }
+.cap-orange { background: #FF9800; }
+.cap-red    { background: #C0392B; }
+
+/* footer */
+.cal-card-footer {
+  border-top: 1px solid #F0F0F0;
+  padding: 12px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cal-duration { font-size: 12px; color: #888; }
+.btn-cal-enroll {
+  padding: 8px 20px; border-radius: 8px;
+  background: #1A3A6E; color: #fff;
+  font-family: 'Vazirmatn', sans-serif; font-size: 13px; font-weight: 700;
+  border: none; cursor: pointer; text-decoration: none;
+  transition: background 0.3s;
+}
+.btn-cal-enroll:hover { background: #C0392B; }
+.btn-cal-full {
+  padding: 8px 20px; border-radius: 8px;
+  background: #F0F0F0; color: #AAA;
+  font-family: 'Vazirmatn', sans-serif; font-size: 13px; font-weight: 700;
+  border: none; cursor: not-allowed;
+}
+
+/* بنر */
+.cal-banner {
+  background: #EEF4FF; border-radius: 16px;
+  padding: 24px 32px;
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+}
+.cal-banner-text { display: flex; flex-direction: column; gap: 4px; }
+.cal-banner-title { font-size: 18px; font-weight: 700; color: #1A1A2E; }
+.cal-banner-sub   { font-size: 14px; color: #4A5568; }
+.btn-cal-banner {
+  padding: 12px 28px; border-radius: 10px;
+  background: #1A3A6E; color: #fff;
+  font-family: 'Vazirmatn', sans-serif; font-size: 15px; font-weight: 700;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
+  transition: background 0.3s;
+}
+.btn-cal-banner:hover { background: #C0392B; }
+
+/* انیمیشن */
+.s6-anim { opacity: 0; transform: translateY(36px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.s6-anim.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1024px) { .cal-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 768px) {
+  .cal-title { font-size: 26px; }
+  .cal-grid { grid-template-columns: 1fr; }
+  .cal-filters { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 4px; }
+  .cal-banner { flex-direction: column; align-items: stretch; text-align: center; padding: 20px; }
+  .btn-cal-banner { text-align: center; }
+}
+</style>
+
+<section class="cal-section" id="cal-section">
+  <div class="cal-container">
+
+    <!-- تیتر -->
+    <div class="cal-header s6-anim">
+      <h2 class="cal-title">تقویم ترمی بریجینو</h2>
+      <div class="cal-divider"></div>
+      <p class="cal-sub">ترم‌های در حال ثبت‌نام و آینده نزدیک</p>
+    </div>
+
+    <!-- فیلتر -->
+    <div class="cal-filters s6-anim">
+      <button class="cal-filter-btn active-all" data-cal="all">همه</button>
+      <button class="cal-filter-btn" data-cal="open">باز</button>
+      <button class="cal-filter-btn" data-cal="ltd">محدود</button>
+      <button class="cal-filter-btn" data-cal="early">زود ثبت‌نام کن</button>
+    </div>
+
+    <!-- گرید -->
+    <div class="cal-grid">
+
+      <!-- کارت ۱ — باز -->
+      <div class="cal-card status-open s6-anim" data-cal="open">
+        <div class="cal-card-header">
+          <div class="cal-card-title-row">
+            <span class="cal-card-name">ترم بهار — انگلیسی مبتدی</span>
+            <span class="badge-status bs-open">باز</span>
+          </div>
+          <div class="cal-badges-row">
+            <span class="badge-lv blv-beg">مبتدی</span>
+            <span class="badge-age-sm">بزرگسالان</span>
+          </div>
+        </div>
+        <div class="cal-card-body">
+          <span class="cal-meta-item"><i class="ti ti-calendar"></i> شروع: ۱ فروردین ۱۴۰۴</span>
+          <span class="cal-meta-item"><i class="ti ti-clock"></i> شنبه‌ها و سه‌شنبه‌ها، ۱۸:۰۰ تا ۲۰:۰۰</span>
+          <span class="cal-meta-item"><i class="ti ti-repeat"></i> ۳ جلسه در هفته</span>
+          <span class="cal-meta-item"><i class="ti ti-device-laptop"></i> حضوری و آنلاین</span>
+          <div class="cap-wrap">
+            <div class="cap-label"><span>ظرفیت</span><span>۸ از ۱۵ نفر</span></div>
+            <div class="cap-track"><div class="cap-fill cap-green" data-pct="53"></div></div>
+          </div>
+        </div>
+        <div class="cal-card-footer">
+          <span class="cal-duration">مدت: ۳ ماه</span>
+          <a href="consultation.html" class="btn-cal-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۲ — محدود -->
+      <div class="cal-card status-ltd s6-anim" data-cal="ltd">
+        <div class="cal-card-header">
+          <div class="cal-card-title-row">
+            <span class="cal-card-name">ترم بهار — آیلتس پیشرفته</span>
+            <span class="badge-status bs-ltd">محدود</span>
+          </div>
+          <div class="cal-badges-row">
+            <span class="badge-lv blv-adv">پیشرفته</span>
+            <span class="badge-age-sm">بزرگسالان</span>
+          </div>
+        </div>
+        <div class="cal-card-body">
+          <span class="cal-meta-item"><i class="ti ti-calendar"></i> شروع: ۱۵ فروردین ۱۴۰۴</span>
+          <span class="cal-meta-item"><i class="ti ti-clock"></i> یکشنبه‌ها و چهارشنبه‌ها، ۱۷:۰۰ تا ۱۹:۳۰</span>
+          <span class="cal-meta-item"><i class="ti ti-repeat"></i> ۴ جلسه در هفته</span>
+          <span class="cal-meta-item"><i class="ti ti-building"></i> حضوری</span>
+          <div class="cap-wrap">
+            <div class="cap-label"><span>ظرفیت</span><span>۸ از ۱۰ نفر</span></div>
+            <div class="cap-track"><div class="cap-fill cap-orange" data-pct="80"></div></div>
+          </div>
+        </div>
+        <div class="cal-card-footer">
+          <span class="cal-duration">مدت: ۵ ماه</span>
+          <a href="consultation.html" class="btn-cal-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۳ — تکمیل ظرفیت -->
+      <div class="cal-card status-full full s6-anim" data-cal="full">
+        <div class="cal-card-header">
+          <div class="cal-card-title-row">
+            <span class="cal-card-name">ترم بهار — کودکان پایه</span>
+            <span class="badge-status bs-full">تکمیل ظرفیت</span>
+          </div>
+          <div class="cal-badges-row">
+            <span class="badge-lv blv-beg">مبتدی</span>
+            <span class="badge-age-sm">کودکان ۷-۱۲</span>
+          </div>
+        </div>
+        <div class="cal-card-body">
+          <span class="cal-meta-item"><i class="ti ti-calendar"></i> شروع: ۱ فروردین ۱۴۰۴</span>
+          <span class="cal-meta-item"><i class="ti ti-clock"></i> پنج‌شنبه‌ها، ۱۵:۰۰ تا ۱۷:۰۰</span>
+          <span class="cal-meta-item"><i class="ti ti-repeat"></i> ۲ جلسه در هفته</span>
+          <span class="cal-meta-item"><i class="ti ti-building"></i> حضوری</span>
+          <div class="cap-wrap">
+            <div class="cap-label"><span>ظرفیت</span><span>۱۲ از ۱۲ نفر</span></div>
+            <div class="cap-track"><div class="cap-fill cap-red" data-pct="100"></div></div>
+          </div>
+        </div>
+        <div class="cal-card-footer">
+          <span class="cal-duration">مدت: ۳ ماه</span>
+          <button class="btn-cal-full" disabled>ظرفیت تکمیل شد</button>
+        </div>
+      </div>
+
+      <!-- کارت ۴ — زود ثبت‌نام کن -->
+      <div class="cal-card status-early s6-anim" data-cal="early">
+        <div class="cal-card-header">
+          <div class="cal-card-title-row">
+            <span class="cal-card-name">ترم اردیبهشت — مکالمه متوسط</span>
+            <span class="badge-status bs-early">زود ثبت‌نام کن</span>
+          </div>
+          <div class="cal-badges-row">
+            <span class="badge-lv blv-int">متوسط</span>
+            <span class="badge-age-sm">بزرگسالان</span>
+          </div>
+        </div>
+        <div class="cal-card-body">
+          <span class="cal-meta-item"><i class="ti ti-calendar"></i> شروع: ۱ اردیبهشت ۱۴۰۴</span>
+          <span class="cal-meta-item"><i class="ti ti-clock"></i> دوشنبه‌ها و پنج‌شنبه‌ها، ۱۹:۰۰ تا ۲۱:۰۰</span>
+          <span class="cal-meta-item"><i class="ti ti-repeat"></i> ۲ جلسه در هفته</span>
+          <span class="cal-meta-item"><i class="ti ti-device-laptop"></i> آنلاین</span>
+          <div class="cap-wrap">
+            <div class="cap-label"><span>ظرفیت</span><span>۳ از ۱۵ نفر</span></div>
+            <div class="cap-track"><div class="cap-fill cap-green" data-pct="20"></div></div>
+          </div>
+        </div>
+        <div class="cal-card-footer">
+          <span class="cal-duration">مدت: ۳ ماه</span>
+          <a href="consultation.html" class="btn-cal-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۵ — باز -->
+      <div class="cal-card status-open s6-anim" data-cal="open">
+        <div class="cal-card-header">
+          <div class="cal-card-title-row">
+            <span class="cal-card-name">ترم اردیبهشت — نوجوانان متوسط</span>
+            <span class="badge-status bs-open">باز</span>
+          </div>
+          <div class="cal-badges-row">
+            <span class="badge-lv blv-int">متوسط</span>
+            <span class="badge-age-sm">نوجوانان ۱۳-۱۷</span>
+          </div>
+        </div>
+        <div class="cal-card-body">
+          <span class="cal-meta-item"><i class="ti ti-calendar"></i> شروع: ۱۵ اردیبهشت ۱۴۰۴</span>
+          <span class="cal-meta-item"><i class="ti ti-clock"></i> شنبه‌ها، ۱۴:۰۰ تا ۱۶:۰۰</span>
+          <span class="cal-meta-item"><i class="ti ti-repeat"></i> ۳ جلسه در هفته</span>
+          <span class="cal-meta-item"><i class="ti ti-building"></i> حضوری</span>
+          <div class="cap-wrap">
+            <div class="cap-label"><span>ظرفیت</span><span>۵ از ۱۲ نفر</span></div>
+            <div class="cap-track"><div class="cap-fill cap-green" data-pct="42"></div></div>
+          </div>
+        </div>
+        <div class="cal-card-footer">
+          <span class="cal-duration">مدت: ۴ ماه</span>
+          <a href="consultation.html" class="btn-cal-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+      <!-- کارت ۶ — زود ثبت‌نام کن -->
+      <div class="cal-card status-early s6-anim" data-cal="early">
+        <div class="cal-card-header">
+          <div class="cal-card-title-row">
+            <span class="cal-card-name">ترم خرداد — تافل پیشرفته</span>
+            <span class="badge-status bs-early">زود ثبت‌نام کن</span>
+          </div>
+          <div class="cal-badges-row">
+            <span class="badge-lv blv-adv">پیشرفته</span>
+            <span class="badge-age-sm">بزرگسالان</span>
+          </div>
+        </div>
+        <div class="cal-card-body">
+          <span class="cal-meta-item"><i class="ti ti-calendar"></i> شروع: ۱ خرداد ۱۴۰۴</span>
+          <span class="cal-meta-item"><i class="ti ti-clock"></i> سه‌شنبه‌ها و جمعه‌ها، ۱۰:۰۰ تا ۱۲:۳۰</span>
+          <span class="cal-meta-item"><i class="ti ti-repeat"></i> ۳ جلسه در هفته</span>
+          <span class="cal-meta-item"><i class="ti ti-device-laptop"></i> آنلاین و حضوری</span>
+          <div class="cap-wrap">
+            <div class="cap-label"><span>ظرفیت</span><span>۱ از ۱۰ نفر</span></div>
+            <div class="cap-track"><div class="cap-fill cap-green" data-pct="10"></div></div>
+          </div>
+        </div>
+        <div class="cal-card-footer">
+          <span class="cal-duration">مدت: ۵ ماه</span>
+          <a href="consultation.html" class="btn-cal-enroll">ثبت‌نام</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- بنر پایین -->
+    <div class="cal-banner s6-anim">
+      <div class="cal-banner-text">
+        <div class="cal-banner-title">ترم مورد نظرت رو پیدا نکردی؟</div>
+        <div class="cal-banner-sub">با ما تماس بگیر — ترم‌های خصوصی و گروه‌های جدید داریم</div>
+      </div>
+      <a href="consultation.html" class="btn-cal-banner">درخواست ترم جدید</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// Section 6 — IntersectionObserver + progress bars
+(function(){
+  const els = document.querySelectorAll('.s6-anim');
+  const pbars = document.querySelectorAll('.cap-fill[data-pct]');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+
+  // Progress bar animation
+  const pbObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.dataset.pct + '%';
+        pbObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  pbars.forEach(b => pbObs.observe(b));
+
+  // Filter
+  let active = 'all';
+  document.querySelectorAll('.cal-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      active = btn.dataset.cal;
+      // reset classes
+      document.querySelectorAll('.cal-filter-btn').forEach(b => {
+        b.classList.remove('active-all','active-open','active-ltd','active-early');
+      });
+      const cls = { all:'active-all', open:'active-open', ltd:'active-ltd', early:'active-early' };
+      btn.classList.add(cls[active] || 'active-all');
+
+      document.querySelectorAll('.cal-card').forEach(card => {
+        const match = active === 'all' || card.dataset.cal === active;
+        card.classList.toggle('cal-filtered-out', !match);
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تعیین سطح | بریجینو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="navbar.js"></script>
+    
+<style>
+.lv2-section {
+  position: relative;
+  background: linear-gradient(135deg, #0D2145 0%, #1A3A6E 100%);
+  padding: 100px 0;
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+  overflow: hidden;
+}
+.lv2-deco1 {
+  position: absolute; top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(192,57,43,0.15) 0%, transparent 70%);
+  filter: blur(60px); z-index: 0; pointer-events: none;
+}
+.lv2-deco2 {
+  position: absolute; bottom: -50px; left: -50px;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  filter: blur(40px); z-index: 0; pointer-events: none;
+}
+.lv2-container {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto; padding: 0 5vw;
+  display: flex; flex-direction: column; gap: 64px;
+}
+
+/* تیتر */
+.lv2-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.lv2-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 16px; border-radius: 20px;
+  border: 1px solid rgba(192,57,43,0.6);
+  background: rgba(192,57,43,0.15);
+  color: #ff9a8b; font-size: 13px; font-weight: 700;
+}
+.lv2-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #ff9a8b; display: inline-block; }
+.lv2-title { font-size: 40px; font-weight: 700; color: #fff; margin: 0; }
+.lv2-sub { font-size: 18px; color: rgba(255,255,255,0.75); max-width: 600px; line-height: 1.8; text-align: center; }
+
+/* کارت‌های سطوح */
+.lv2-cards-section { display: flex; flex-direction: column; gap: 24px; }
+.lv2-cards-title { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.9); }
+.lv2-cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; align-items: start; }
+
+.lv2-card {
+  position: relative;
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px; padding: 28px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: background 0.3s, transform 0.3s;
+}
+.lv2-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+.lv2-card.featured { transform: scale(1.04); z-index: 1; }
+.lv2-card.featured:hover { transform: scale(1.04) translateY(-4px); }
+
+.lv2-card-bt-green  { border-top: 3px solid #4CAF50; }
+.lv2-card-bt-orange { border-top: 3px solid #FF9800; }
+.lv2-card-bt-red    { border-top: 3px solid #C0392B; }
+
+.lv2-popular-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: #FF9800; color: #fff;
+  border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 700;
+  white-space: nowrap;
+}
+
+.lv2-card-icon { font-size: 32px; }
+.icon-green  { color: #4CAF50; }
+.icon-orange { color: #FF9800; }
+.icon-red    { color: #C0392B; }
+
+.lv2-card-title { font-size: 20px; font-weight: 700; color: #fff; }
+.lv2-card-en { display: block; font-family: 'Playfair Display', serif; font-style: italic; font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+.lv2-card-desc { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+.lv2-skills { display: flex; flex-direction: column; gap: 7px; margin-top: 4px; }
+.lv2-skill { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.75); }
+.lv2-skill-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #4CAF50; flex-shrink: 0; }
+
+/* نمونه سوال */
+.lv2-quiz-section { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.lv2-quiz-header { text-align: center; display: flex; flex-direction: column; gap: 6px; }
+.lv2-quiz-title { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.9); }
+.lv2-quiz-sub   { font-size: 14px; color: rgba(255,255,255,0.5); }
+.lv2-quiz-card {
+  background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px; padding: 28px; width: 100%; max-width: 620px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.lv2-quiz-top { display: flex; justify-content: space-between; align-items: center; }
+.lv2-quiz-num { font-size: 12px; color: rgba(255,255,255,0.5); }
+.lv2-quiz-cat { padding: 4px 12px; border-radius: 20px; background: rgba(192,57,43,0.3); color: #ff9a8b; font-size: 11px; font-weight: 700; }
+.lv2-quiz-q { font-family: 'Playfair Display', serif; font-size: 18px; color: #fff; line-height: 1.5; }
+.lv2-opts { display: flex; flex-direction: column; gap: 10px; }
+.lv2-opt {
+  display: flex; align-items: center; gap: 12px;
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px;
+  color: rgba(255,255,255,0.85); font-size: 14px; cursor: pointer; transition: background 0.2s;
+  direction: ltr; text-align: left;
+}
+.lv2-opt:hover { background: rgba(255,255,255,0.08); }
+.lv2-opt.correct { border-color: #4CAF50; background: rgba(76,175,80,0.15); color: #fff; }
+.lv2-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+.lv2-opt.correct .lv2-radio { background: #4CAF50; border-color: #4CAF50; }
+.lv2-tick { font-size: 15px; color: #4CAF50; margin-left: auto; }
+.lv2-quiz-footer { font-size: 12px; color: rgba(255,255,255,0.45); text-align: center; }
+
+/* مراحل */
+.lv2-process { display: flex; flex-direction: column; gap: 40px; align-items: center; }
+.lv2-process-title { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.9); text-align: center; }
+.lv2-steps {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 0; position: relative; width: 100%;
+}
+.lv2-steps::before {
+  content: ''; position: absolute; top: 22px; right: 12.5%; left: 12.5%;
+  height: 0; border-top: 2px dashed rgba(255,255,255,0.2); z-index: 0;
+}
+.lv2-step {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  text-align: center; position: relative; z-index: 1; padding: 0 8px;
+}
+.lv2-step-num {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #C0392B; color: #fff;
+  font-size: 16px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.lv2-step-icon { font-size: 22px; color: rgba(255,255,255,0.7); }
+.lv2-step-name { font-size: 14px; font-weight: 700; color: #fff; }
+.lv2-step-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+/* CTA */
+.lv2-cta { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.btn-lv2-main {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 18px 48px; border-radius: 14px;
+  background: #C0392B; color: #fff;
+  font-family: 'Vazirmatn', sans-serif; font-weight: 700; font-size: 18px;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px rgba(192,57,43,0.3);
+}
+.btn-lv2-main:hover {
+  background: #A93226; transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(192,57,43,0.45);
+}
+.lv2-cta-note { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+/* انیمیشن */
+.lv2-anim { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.lv2-anim.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lv2-title { font-size: 28px; }
+  .lv2-sub { font-size: 15px; }
+  .lv2-cards-grid { grid-template-columns: 1fr; }
+  .lv2-card.featured { transform: none; }
+  .lv2-card.featured:hover { transform: translateY(-4px); }
+  .lv2-steps { grid-template-columns: 1fr; gap: 24px; }
+  .lv2-steps::before { display: none; }
+  .lv2-step { flex-direction: row; text-align: right; gap: 16px; }
+  .lv2-step-icon { display: none; }
+  .btn-lv2-main { width: 100%; justify-content: center; padding: 16px 24px; font-size: 16px; }
+  .lv2-quiz-card { padding: 20px; }
+}
+</style>
+
+<section class="lv2-section" id="level-section">
+  <div class="lv2-deco1"></div>
+  <div class="lv2-deco2"></div>
+
+  <div class="lv2-container">
+
+    <!-- بخش ۱: تیتر -->
+    <div class="lv2-header lv2-anim">
+      <span class="lv2-badge"><span class="lv2-badge-dot"></span>رایگان و آنلاین</span>
+      <h2 class="lv2-title">سطح زبانی خود را بسنجید</h2>
+      <p class="lv2-sub">در کمتر از ۱۵ دقیقه بفهمید از کجا شروع کنید — آزمون تعیین سطح بریجینو کاملاً رایگان است</p>
+    </div>
+
+    <!-- بخش ۲: کارت‌های سطوح -->
+    <div class="lv2-cards-section">
+      <div class="lv2-cards-title lv2-anim">سطوح آموزشی بریجینو</div>
+      <div class="lv2-cards-grid">
+
+        <!-- مبتدی -->
+        <div class="lv2-card lv2-card-bt-green lv2-anim">
+          <i class="ti ti-seedling lv2-card-icon icon-green"></i>
+          <div>
+            <div class="lv2-card-title">مبتدی</div>
+            <span class="lv2-card-en">Beginner / A1–A2</span>
+          </div>
+          <p class="lv2-card-desc">برای کسانی که تازه شروع می‌کنند یا پایه زبانی ضعیفی دارند</p>
+          <div class="lv2-skills">
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>مکالمه پایه</span>
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>گرامر مقدماتی</span>
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>واژگان روزمره</span>
+          </div>
+        </div>
+
+        <!-- متوسط — برجسته -->
+        <div class="lv2-card lv2-card-bt-orange featured lv2-anim">
+          <span class="lv2-popular-badge">پرطرفدار ⭐</span>
+          <i class="ti ti-flame lv2-card-icon icon-orange"></i>
+          <div>
+            <div class="lv2-card-title">متوسط</div>
+            <span class="lv2-card-en">Intermediate / B1–B2</span>
+          </div>
+          <p class="lv2-card-desc">برای کسانی که پایه دارند و می‌خواهند مهارت‌هایشان را تقویت کنند</p>
+          <div class="lv2-skills">
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>مکالمه روان</span>
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>نوشتار پیشرفته</span>
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>درک مطلب</span>
+          </div>
+        </div>
+
+        <!-- پیشرفته -->
+        <div class="lv2-card lv2-card-bt-red lv2-anim">
+          <i class="ti ti-crown lv2-card-icon icon-red"></i>
+          <div>
+            <div class="lv2-card-title">پیشرفته</div>
+            <span class="lv2-card-en">Advanced / C1–C2</span>
+          </div>
+          <p class="lv2-card-desc">برای کسانی که به سطح حرفه‌ای و بین‌المللی می‌خواهند برسند</p>
+          <div class="lv2-skills">
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>مکالمه حرفه‌ای</span>
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>آیلتس و تافل</span>
+            <span class="lv2-skill"><span class="lv2-skill-check">✓</span>زبان تخصصی</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- بخش ۳: نمونه سوال -->
+    <div class="lv2-quiz-section">
+      <div class="lv2-quiz-header lv2-anim">
+        <div class="lv2-quiz-title">نمونه‌ای از سوالات آزمون</div>
+        <div class="lv2-quiz-sub">آزمون شامل ۳۰ سوال در ۴ مهارت است</div>
+      </div>
+      <div class="lv2-quiz-card lv2-anim">
+        <div class="lv2-quiz-top">
+          <span class="lv2-quiz-num">سوال ۱ از ۳۰</span>
+          <span class="lv2-quiz-cat">گرامر</span>
+        </div>
+        <div class="lv2-quiz-q">Which sentence is grammatically correct?</div>
+        <div class="lv2-opts" id="lv2-opts">
+          <div class="lv2-opt" data-ans="A"><div class="lv2-radio"></div><span>A) She go to school every day.</span></div>
+          <div class="lv2-opt correct" data-ans="B"><div class="lv2-radio"></div><span>B) She goes to school every day.</span><span class="lv2-tick">✓</span></div>
+          <div class="lv2-opt" data-ans="C"><div class="lv2-radio"></div><span>C) She going to school every day.</span></div>
+          <div class="lv2-opt" data-ans="D"><div class="lv2-radio"></div><span>D) She gone to school every day.</span></div>
+        </div>
+        <div class="lv2-quiz-footer">در آزمون واقعی ۳۰ سوال از ۴ مهارت خواهید داشت</div>
+      </div>
+    </div>
+
+    <!-- بخش ۴: فرآیند + CTA -->
+    <div class="lv2-process">
+      <div class="lv2-process-title lv2-anim">فرآیند آزمون تعیین سطح</div>
+      <div class="lv2-steps">
+        <div class="lv2-step lv2-anim">
+          <div class="lv2-step-num">۱</div>
+          <i class="ti ti-clipboard-list lv2-step-icon"></i>
+          <div><div class="lv2-step-name">ثبت‌نام رایگان</div><div class="lv2-step-desc">فقط نام و شماره لازم است</div></div>
+        </div>
+        <div class="lv2-step lv2-anim">
+          <div class="lv2-step-num">۲</div>
+          <i class="ti ti-writing lv2-step-icon"></i>
+          <div><div class="lv2-step-name">پاسخ به سوالات</div><div class="lv2-step-desc">۳۰ سوال در ۱۵ دقیقه</div></div>
+        </div>
+        <div class="lv2-step lv2-anim">
+          <div class="lv2-step-num">۳</div>
+          <i class="ti ti-chart-bar lv2-step-icon"></i>
+          <div><div class="lv2-step-name">دریافت نتیجه</div><div class="lv2-step-desc">سطح شما فوری مشخص می‌شود</div></div>
+        </div>
+        <div class="lv2-step lv2-anim">
+          <div class="lv2-step-num">۴</div>
+          <i class="ti ti-rocket lv2-step-icon"></i>
+          <div><div class="lv2-step-name">شروع یادگیری</div><div class="lv2-step-desc">مشاور ما با شما تماس می‌گیرد</div></div>
+        </div>
+      </div>
+      <div class="lv2-cta lv2-anim">
+        <a href="#" class="btn-lv2-main">
+          شروع تعیین سطح رایگان
+          <i class="ti ti-arrow-left"></i>
+        </a>
+        <span class="lv2-cta-note">بدون نیاز به ثبت‌نام قبلی — نتیجه فوری</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  // IntersectionObserver
+  const els = document.querySelectorAll('.lv2-anim');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 90);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+
+  // Interactive quiz
+  document.querySelectorAll('.lv2-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.lv2-opt').forEach(o => {
+        o.classList.remove('correct');
+        const t = o.querySelector('.lv2-tick'); if (t) t.remove();
+        o.querySelector('.lv2-radio').style.cssText = '';
+      });
+      opt.classList.add('correct');
+      const tick = document.createElement('span');
+      tick.className = 'lv2-tick'; tick.textContent = '✓';
+      opt.appendChild(tick);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

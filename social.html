@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شبکه‌های اجتماعی | بریجینو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="navbar.js"></script>
+     
+<style>
+.social-section {
+  background: #F8F9FA;
+  padding: 100px 0;
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+}
+.social-container {
+  max-width: 1100px; margin: 0 auto; padding: 0 5vw;
+  display: flex; flex-direction: column; gap: 56px;
+}
+
+/* تیتر */
+.social-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.social-title { font-size: 36px; font-weight: 700; color: #1A1A2E; margin: 0; }
+.social-divider { width: 60px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1A3A6E,#C0392B); }
+.social-sub { font-size: 17px; color: #4A5568; max-width: 560px; text-align: center; line-height: 1.7; }
+
+/* گرید کارت‌ها */
+.social-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; }
+
+/* کارت */
+.social-card {
+  border-radius: 20px; overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.social-card:hover { transform: translateY(-8px); }
+
+.social-card-header {
+  padding: 28px 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.social-icon-wrap {
+  width: 52px; height: 52px; border-radius: 14px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.social-icon-wrap svg { width: 28px; height: 28px; }
+.social-card-network { font-size: 20px; font-weight: 700; color: #fff; }
+.social-card-handle  { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 2px; }
+
+.social-card-body { background: #fff; padding: 24px; display: flex; flex-direction: column; gap: 0; }
+
+.social-stats { display: flex; align-items: center; gap: 0; margin-bottom: 16px; }
+.social-stat { flex: 1; text-align: center; padding: 0 12px; }
+.social-stat:not(:last-child) { border-left: 1px solid #F0F0F0; }
+.social-stat-num { font-size: 28px; font-weight: 700; display: block; line-height: 1; margin-bottom: 4px; }
+.social-stat-lbl { font-size: 12px; color: #888; }
+
+.social-sep { border: none; border-top: 1px solid #F5F5F5; margin: 0 0 16px; }
+.social-desc { font-size: 14px; color: #4A5568; line-height: 1.7; margin-bottom: 20px; }
+
+.btn-social {
+  width: 100%; padding: 14px;
+  border: none; border-radius: 12px;
+  color: #fff; font-family: 'Vazirmatn', sans-serif;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  text-decoration: none; transition: opacity 0.3s, transform 0.3s;
+}
+.btn-social:hover { opacity: 0.9; transform: scale(1.02); }
+
+/* رنگ‌ها */
+.ig-grad  { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+.tg-grad  { background: linear-gradient(135deg,#0088cc,#006699); }
+.ble-grad { background: linear-gradient(135deg,#00a651,#007a3d); }
+
+.ig-num  { background: linear-gradient(135deg,#f09433,#bc1888); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.tg-num  { color: #0088cc; }
+.ble-num { color: #00a651; }
+
+.card-ig  { box-shadow: 0 8px 32px rgba(220,39,67,0.20); }
+.card-ig:hover  { box-shadow: 0 16px 48px rgba(220,39,67,0.30); }
+.card-tg  { box-shadow: 0 8px 32px rgba(0,136,204,0.20); }
+.card-tg:hover  { box-shadow: 0 16px 48px rgba(0,136,204,0.30); }
+.card-ble { box-shadow: 0 8px 32px rgba(0,166,81,0.20); }
+.card-ble:hover { box-shadow: 0 16px 48px rgba(0,166,81,0.30); }
+
+/* بنر */
+.social-banner {
+  background: linear-gradient(135deg,#0D2145,#1A3A6E);
+  border-radius: 20px; padding: 32px 40px;
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
+}
+.social-banner-text { display: flex; flex-direction: column; gap: 6px; }
+.social-banner-title { font-size: 22px; font-weight: 700; color: #fff; }
+.social-banner-sub   { font-size: 14px; color: rgba(255,255,255,0.7); }
+.social-banner-btns  { display: flex; gap: 12px; flex-shrink: 0; }
+.btn-banner-social {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 10px;
+  color: #fff; font-family: 'Vazirmatn', sans-serif;
+  font-size: 13px; font-weight: 700;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: opacity 0.3s;
+}
+.btn-banner-social:hover { opacity: 0.88; }
+.btn-banner-social svg { width: 18px; height: 18px; }
+
+/* انیمیشن */
+.s8-anim { opacity: 0; transform: translateY(36px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.s8-anim.visible { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1024px) { .social-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 768px) {
+  .social-title { font-size: 24px; }
+  .social-grid { grid-template-columns: 1fr; }
+  .social-banner { flex-direction: column; padding: 24px 20px; text-align: center; }
+  .social-banner-btns { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; width: 100%; }
+  .btn-banner-social { justify-content: center; }
+}
+</style>
+
+<section class="social-section" id="social-section">
+  <div class="social-container">
+
+    <!-- تیتر -->
+    <div class="social-header s8-anim">
+      <h2 class="social-title">ما را در شبکه‌های اجتماعی دنبال کنید</h2>
+      <div class="social-divider"></div>
+      <p class="social-sub">آخرین اخبار، محتوای آموزشی و تخفیف‌های ویژه را اول از همه در شبکه‌های ما ببینید</p>
+    </div>
+
+    <!-- گرید -->
+    <div class="social-grid">
+
+      <!-- اینستاگرام -->
+      <div class="social-card card-ig s8-anim">
+        <div class="social-card-header ig-grad">
+          <div class="social-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="ig1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#f09433"/>
+                  <stop offset="100%" stop-color="#bc1888"/>
+                </linearGradient>
+              </defs>
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#ig1)" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="12" r="4" stroke="url(#ig1)" stroke-width="2" fill="none"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="url(#ig1)"/>
+            </svg>
+          </div>
+          <div>
+            <div class="social-card-network">اینستاگرام</div>
+            <div class="social-card-handle">@bridgino</div>
+          </div>
+        </div>
+        <div class="social-card-body">
+          <div class="social-stats">
+            <div class="social-stat">
+              <span class="social-stat-num ig-num" data-count="2500" data-suffix="+">0</span>
+              <span class="social-stat-lbl">دنبال‌کننده</span>
+            </div>
+            <div class="social-stat">
+              <span class="social-stat-num ig-num" data-count="180" data-suffix="+">0</span>
+              <span class="social-stat-lbl">پست آموزشی</span>
+            </div>
+          </div>
+          <hr class="social-sep">
+          <p class="social-desc">محتوای آموزشی روزانه، نکات گرامری، واژگان و تخفیف‌های ویژه زبان‌آموزان</p>
+          <a href="https://www.instagram.com/bridgino?igsh=MTZieGU3MnR6a21rNQ==" target="_blank" class="btn-social ig-grad">
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="#fff" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2" fill="none"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/>
+            </svg>
+            دنبال کردن در اینستاگرام
+          </a>
+        </div>
+      </div>
+
+      <!-- تلگرام -->
+      <div class="social-card card-tg s8-anim">
+        <div class="social-card-header tg-grad">
+          <div class="social-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.8 2.15L1.4 10.2c-1.3.52-1.29 1.25-.24 1.57l5.1 1.6 11.8-7.45c.56-.34 1.07-.16.65.22L8.35 15.4H8.34l-.38 5.26c.56 0 .8-.26 1.12-.56l2.67-2.6 5.56 4.1c1.02.56 1.75.27 2.01-.95l3.64-17.15c.37-1.5-.57-2.18-1.16-1.35z" fill="#0088cc"/>
+            </svg>
+          </div>
+          <div>
+            <div class="social-card-network">تلگرام</div>
+            <div class="social-card-handle">@bridge_languages</div>
+          </div>
+        </div>
+        <div class="social-card-body">
+          <div class="social-stats">
+            <div class="social-stat">
+              <span class="social-stat-num tg-num" data-count="1800" data-suffix="+">0</span>
+              <span class="social-stat-lbl">عضو کانال</span>
+            </div>
+            <div class="social-stat">
+              <span class="social-stat-num tg-num" data-count="300" data-suffix="+">0</span>
+              <span class="social-stat-lbl">پیام ارسال‌شده</span>
+            </div>
+          </div>
+          <hr class="social-sep">
+          <p class="social-desc">اطلاعیه‌های ترم، لینک کلاس‌های آنلاین، محتوای آموزشی و اخبار موسسه</p>
+          <a href="https://t.me/bridge_languages" target="_blank" class="btn-social tg-grad">
+            <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+              <path d="M21.8 2.15L1.4 10.2c-1.3.52-1.29 1.25-.24 1.57l5.1 1.6 11.8-7.45c.56-.34 1.07-.16.65.22L8.35 15.4H8.34l-.38 5.26c.56 0 .8-.26 1.12-.56l2.67-2.6 5.56 4.1c1.02.56 1.75.27 2.01-.95l3.64-17.15c.37-1.5-.57-2.18-1.16-1.35z" fill="#fff"/>
+            </svg>
+            عضویت در کانال تلگرام
+          </a>
+        </div>
+      </div>
+
+      <!-- بله -->
+      <div class="social-card card-ble s8-anim">
+        <div class="social-card-header ble-grad">
+          <div class="social-icon-wrap">
+            <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+                font-family="Vazirmatn, sans-serif" font-weight="700" font-size="28"
+                fill="#00a651">ب</text>
+            </svg>
+          </div>
+          <div>
+            <div class="social-card-network">بله</div>
+            <div class="social-card-handle">@bridgino</div>
+          </div>
+        </div>
+        <div class="social-card-body">
+          <div class="social-stats">
+            <div class="social-stat">
+              <span class="social-stat-num ble-num" data-count="900" data-suffix="+">0</span>
+              <span class="social-stat-lbl">عضو</span>
+            </div>
+            <div class="social-stat">
+              <span class="social-stat-num ble-num" data-count="150" data-suffix="+">0</span>
+              <span class="social-stat-lbl">محتوای ارسال‌شده</span>
+            </div>
+          </div>
+          <hr class="social-sep">
+          <p class="social-desc">برای کاربران داخل ایران — اطلاعیه‌ها، لینک کلاس‌ها و پشتیبانی آنلاین</p>
+          <a href="https://ble.ir/bridgino" target="_blank" class="btn-social ble-grad">
+            <svg viewBox="0 0 24 24" width="18" height="18">
+              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+                font-family="Vazirmatn,sans-serif" font-weight="700" font-size="14" fill="#fff">ب</text>
+            </svg>
+            عضویت در بله
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- بنر دعوت -->
+    <div class="social-banner s8-anim">
+      <div class="social-banner-text">
+        <div class="social-banner-title">محتوای رایگان آموزشی دریافت کنید</div>
+        <div class="social-banner-sub">هر هفته نکات گرامری، واژگان و تمرین رایگان</div>
+      </div>
+      <div class="social-banner-btns">
+        <a href="https://instagram.com/bridgino.ir" target="_blank" class="btn-banner-social ig-grad">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="#fff" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2" fill="none"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>
+          اینستاگرام
+        </a>
+        <a href="https://t.me/bridgino_official" target="_blank" class="btn-banner-social" style="background:#0088cc;">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18"><path d="M21.8 2.15L1.4 10.2c-1.3.52-1.29 1.25-.24 1.57l5.1 1.6 11.8-7.45c.56-.34 1.07-.16.65.22L8.35 15.4H8.34l-.38 5.26c.56 0 .8-.26 1.12-.56l2.67-2.6 5.56 4.1c1.02.56 1.75.27 2.01-.95l3.64-17.15c.37-1.5-.57-2.18-1.16-1.35z" fill="#fff"/></svg>
+          تلگرام
+        </a>
+        <a href="https://ble.ir/bridgino" target="_blank" class="btn-banner-social" style="background:#00a651;">
+          <svg viewBox="0 0 24 24" width="18" height="18"><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-family="Vazirmatn,sans-serif" font-weight="700" font-size="14" fill="#fff">ب</text></svg>
+          بله
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  // Animate section 8 elements
+  const els = document.querySelectorAll('.s8-anim');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+
+  // Counter animation for social stats
+  function toNum(n) { return n.toString().replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+  const counters = document.querySelectorAll('.social-stat-num[data-count]');
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      let cur = 0; const steps = 120; const inc = target / steps;
+      const t = setInterval(() => {
+        cur += inc;
+        if (cur >= target) { cur = target; clearInterval(t); }
+        el.textContent = toNum(Math.floor(cur)) + suffix;
+      }, 16);
+      cio.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => cio.observe(c));
+})();
+</script>
+
+</body>
+</html>

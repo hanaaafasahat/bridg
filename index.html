@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بریجینو | آموزشگاه زبان انگلیسی</title>
+<meta name="description" content="بریجینو — آموزشگاه زبان انگلیسی در گلپایگان. تعیین سطح رایگان، دوره‌های مبتدی تا پیشرفته، آموزش آنلاین و حضوری.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --blue: #1A3A6E;
+  --red: #C0392B;
+  --text: #1A1A2E;
+  --sub: #4A5568;
+  --font: 'Vazirmatn', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  direction: rtl;
+  background: #F8FAFF;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── Navbar: استایل از navbar.js تزریق می‌شود ─── */
+
+/* ─── Hero با عکس پس‌زمینه ─── */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex; align-items: center;
+  padding-top: 70px;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(135deg, rgba(13,33,69,0.88) 0%, rgba(26,58,110,0.80) 45%, rgba(26,58,110,0.55) 100%),
+    url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center 30%;
+  z-index: 0;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, #F8FAFF 100%);
+}
+.hero-content {
+  position: relative; z-index: 10;
+  max-width: 680px;
+  padding: 60px 60px 60px 40px;
+  animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px; padding: 6px 16px;
+  font-size: 13px; color: #fff; font-weight: 500;
+  margin-bottom: 20px;
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+.hero-badge span { width: 6px; height: 6px; background: #ff9a8b; border-radius: 50%; animation: pulse 2s infinite; }
+.hero-title {
+  font-size: 56px; font-weight: 800; line-height: 1.25;
+  color: #FFFFFF; margin-bottom: 16px;
+  animation: fadeUp 0.7s ease 0.2s both;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+.hero-title .brand { color: #ff9a8b; }
+.hero-sub {
+  font-size: 18px; color: rgba(255,255,255,0.88); line-height: 1.8;
+  margin-bottom: 36px;
+  animation: fadeUp 0.7s ease 0.3s both;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.15);
+}
+
+.hero-stats {
+  display: flex; align-items: center; gap: 0;
+  animation: fadeUp 0.7s ease 0.4s both;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 16px;
+  padding: 20px 28px;
+  width: fit-content;
+}
+.stat { text-align: center; padding: 0 24px; }
+.stat:not(:last-child) { border-left: 1px solid rgba(255,255,255,0.25); }
+.stat-num {
+  font-family: var(--font);
+  font-size: 32px; font-weight: 800; color: #FFFFFF;
+  line-height: 1; margin-bottom: 4px;
+}
+.stat-num.red { color: #ff9a8b; }
+.stat-label { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 500; }
+
+/* ─── کاروسل ناوبری (مثل کانون) ─── */
+.carousel-wrap {
+  padding: 56px 60px 70px;
+  background: #fff;
+}
+.carousel-header {
+  text-align: center; margin-bottom: 36px;
+}
+.carousel-header h2 { font-size: 30px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+.carousel-header p { font-size: 15px; color: var(--sub); }
+.section-line {
+  width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--red));
+  border-radius: 2px; margin: 12px auto 0;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.nav-card {
+  background: #FAFAFA;
+  border: 1px solid #EEEEEE;
+  border-radius: 16px;
+  padding: 26px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  position: relative; overflow: hidden;
+}
+.nav-card::before {
+  content: ''; position: absolute; bottom: 0; right: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--red));
+  transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease;
+}
+.nav-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(26,58,110,0.10); border-color: transparent; }
+.nav-card:hover::before { transform: scaleX(1); }
+.nav-card:hover .card-icon { background: var(--blue); }
+.nav-card:hover .card-icon svg { stroke: #fff; }
+.nav-card.red-accent:hover .card-icon { background: var(--red); }
+.nav-card.red-accent:hover .card-icon svg { stroke: #fff; }
+.card-icon {
+  width: 50px; height: 50px; background: #EEF4FF; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s; flex-shrink: 0;
+}
+.nav-card.red-accent .card-icon { background: #FFEBEE; }
+.card-icon svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.8; transition: all 0.3s; }
+.nav-card.red-accent .card-icon svg { stroke: var(--red); }
+.card-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.card-desc { font-size: 11px; color: var(--sub); line-height: 1.5; }
+
+
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.reveal { opacity:0; transform:translateY(30px); transition: all 0.7s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:768px){
+  .navbar { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { min-height: 85vh; }
+  .hero-content { padding: 40px 20px; }
+  .hero-title { font-size: 34px; }
+  .hero-sub { font-size: 15px; }
+  .hero-stats { padding: 16px 18px; flex-wrap: wrap; }
+  .stat { padding: 8px 12px; }
+  .stat-num { font-size: 22px; }
+  .carousel-wrap { padding: 44px 16px 50px; }
+  .cards-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .nav-card { padding: 18px 14px; }
+}
+</style>
+</head>
+<body>
+
+<script src="navbar.js"></script>
+
+<!-- ─── Hero با عکس بچه‌ها ─── -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span></span> آموزشگاه زبان بریجینو</div>
+    <h1 class="hero-title"><span class="brand">بریجینو،</span><br>پلی به دنیای زبان</h1>
+    <p class="hero-sub">با روش‌های نوین و اساتید مجرب،<br>انگلیسی را برای همه سنین آموزش می‌دهیم</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="c1">۰</div><div class="stat-label">زبان‌آموز فعال</div></div>
+      <div class="stat"><div class="stat-num red" id="c2">۰</div><div class="stat-label">دوره تخصصی</div></div>
+      <div class="stat"><div class="stat-num" id="c3">۰</div><div class="stat-label">سال تجربه</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── کاروسل ناوبری ─── -->
+<section class="carousel-wrap">
+  <div class="carousel-header reveal">
+    <h2>به کجا می‌خواهید بروید؟</h2>
+    <p>از اینجا به تمام بخش‌های بریجینو دسترسی داشته باشید</p>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="cards-grid reveal">
+    <a href="about.html" class="nav-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+          <div class="card-title">درباره ما</div>
+          <div class="card-desc">آشنایی با بریجینو</div>
+        </a>
+
+        <a href="level-test.html" class="nav-card red-accent">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+          <div class="card-title">تعیین سطح</div>
+          <div class="card-desc">رایگان و آنلاین</div>
+        </a>
+
+        <a href="consultation.html" class="nav-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <div class="card-title">مشاوره رایگان</div>
+          <div class="card-desc">با متخصصان ما</div>
+        </a>
+
+        <a href="courses.html" class="nav-card red-accent">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+          <div class="card-title">دوره‌ها</div>
+          <div class="card-desc">مبتدی تا پیشرفته</div>
+        </a>
+
+        <a href="calendar.html" class="nav-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div class="card-title">تقویم ترمی</div>
+          <div class="card-desc">ثبت‌نام ترم‌ها</div>
+        </a>
+
+        <a href="news.html" class="nav-card red-accent">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2V9"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></div>
+          <div class="card-title">اخبار</div>
+          <div class="card-desc">آخرین رویدادها</div>
+        </a>
+
+        <a href="social.html" class="nav-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
+          <div class="card-title">شبکه‌های اجتماعی</div>
+          <div class="card-desc">دنبال کنید</div>
+        </a>
+
+        <a href="feedback.html" class="nav-card red-accent">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="card-title">پیشنهادات</div>
+          <div class="card-desc">نظر شما مهم است</div>
+        </a>
+
+        <a href="contact.html" class="nav-card">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .84h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div class="card-title">تماس با ما</div>
+          <div class="card-desc">راه‌های ارتباطی</div>
+        </a>
+
+  </div>
+</section>
+
+<script>
+// ─── Counter animation ───
+function animateCounter(el, target) {
+  let start = 0;
+  const persianDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  const toPersian = n => String(n).replace(/\d/g, d => persianDigits[d]);
+  const duration = 2000;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = '+' + toPersian(Math.floor(ease * target));
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = '+' + toPersian(target);
+  };
+  requestAnimationFrame(step);
+}
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(document.getElementById('c1'), 2000);
+      animateCounter(document.getElementById('c2'), 50);
+      animateCounter(document.getElementById('c3'), 8);
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+statsObserver.observe(document.querySelector('.hero-stats'));
+
+// navbar scroll و منوی موبایل توسط navbar.js مدیریت می‌شود
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>

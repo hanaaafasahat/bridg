@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>درباره بریجینو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="navbar.js"></script>
+<style>
+/* ── About Section ── */
+.about-section {
+  background: #fff;
+  border-top: 1px solid #F0F0F0;
+  padding: 80px 0;
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+}
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* Section header */
+.section-header { text-align: center; }
+.section-title { font-size: 36px; font-weight: 700; color: #1A1A2E; margin-bottom: 12px; }
+.title-line {
+  width: 60px; height: 3px; margin: 0 auto 16px;
+  background: linear-gradient(90deg, #1A3A6E, #C0392B);
+  border-radius: 2px;
+}
+.section-sub { font-size: 16px; color: #4A5568; }
+
+/* Two-col grid */
+.two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+/* About cards */
+.about-card {
+  background: #FAFAFA;
+  border: 1px solid #EEEEEE;
+  border-radius: 12px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.border-blue { border-right: 3px solid #1A3A6E; }
+.border-red  { border-right: 3px solid #C0392B; }
+
+.card-icon { font-size: 32px; line-height: 1; }
+.card-icon.blue { color: #1A3A6E; }
+.card-icon.red  { color: #C0392B; }
+.card-title { font-size: 18px; font-weight: 700; color: #1A1A2E; }
+.card-text  { font-size: 15px; color: #4A5568; line-height: 1.9; }
+
+/* Timeline */
+.timeline-wrap { display: flex; flex-direction: column; gap: 24px; }
+.row-title { font-size: 20px; font-weight: 700; color: #1A1A2E; }
+.row-title.center-text { text-align: center; }
+
+.timeline { position: relative; padding: 20px 0; }
+.timeline-line {
+  position: absolute;
+  top: 27px; right: 7px; left: 7px;
+  height: 2px; background: #E0E0E0;
+}
+.timeline-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+.tl-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 0;
+  text-align: center;
+}
+.tl-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 3px solid #1A3A6E;
+  background: #FFFFFF;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+.tl-dot-active { background: #1A3A6E; }
+.tl-year  { font-size: 14px; font-weight: 700; color: #1A3A6E; }
+.tl-name  { font-size: 13px; font-weight: 700; color: #1A1A2E; }
+.tl-desc  { font-size: 12px; color: #888; line-height: 1.5; }
+
+/* Why cards */
+.why-section { display: flex; flex-direction: column; gap: 24px; }
+.three-col-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.why-card {
+  background: #fff;
+  border: 1px solid #EEEEEE;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+.why-card:hover {
+  border-color: #1A3A6E;
+  box-shadow: 0 4px 16px rgba(26,58,110,0.08);
+}
+.why-icon { font-size: 28px; color: #1A3A6E; line-height: 1; }
+.why-title { font-size: 15px; font-weight: 700; color: #1A1A2E; }
+.why-text  { font-size: 14px; color: #4A5568; line-height: 1.8; }
+
+/* Stats band */
+.stats-band {
+  background: #F8F9FA;
+  border-radius: 16px;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.stat-big { text-align: center; display: flex; flex-direction: column; gap: 8px; }
+.stat-big-num {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+.stat-big-num.blue { color: #1A3A6E; }
+.stat-big-num.red  { color: #C0392B; }
+.stat-big-label { font-size: 14px; color: #4A5568; }
+
+/* ── Scroll animation ── */
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.scroll-anim.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .about-section { padding: 60px 0; }
+  .about-container { gap: 48px; }
+  .two-col-grid { grid-template-columns: 1fr; }
+  .three-col-grid { grid-template-columns: 1fr; }
+  .stats-band { grid-template-columns: repeat(3, 1fr); padding: 24px 16px; }
+  .stat-big-num { font-size: 28px; }
+  .timeline-items { grid-template-columns: 1fr; gap: 28px; }
+  .timeline-line { top: 7px; right: 27px; left: auto; width: 2px; height: calc(100% - 14px); }
+  .tl-item { flex-direction: row; align-items: flex-start; text-align: right; gap: 16px; }
+  .tl-dot { flex-shrink: 0; margin-top: 2px; }
+  .tl-item > div:not(.tl-dot) { display: inline; }
+  .tl-item-text { display: flex; flex-direction: column; gap: 4px; }
+}
+</style>
+
+<section id="about" class="about-section">
+  <div class="about-container">
+
+    <!-- Section header -->
+    <div class="section-header scroll-anim">
+      <h2 class="section-title">درباره بریجینو</h2>
+      <div class="title-line"></div>
+      <p class="section-sub">آموزشگاهی که پل ارتباط شما با دنیاست</p>
+    </div>
+
+    <!-- Row 1: Story + Mission -->
+    <div class="two-col-grid">
+      <div class="about-card border-blue scroll-anim" data-delay="0.1">
+        <div class="card-icon blue"><i class="ti ti-building-community"></i></div>
+        <h3 class="card-title">داستان ما</h3>
+        <p class="card-text">بریجینو در سال ۱۳۹۵ با یک رویای ساده اما بلند پا گرفت: ایجاد پلی میان ایرانیان و دنیای بی‌کران زبان. از یک کلاس کوچک با چند صندلی شروع کردیم و امروز به یکی از پرانرژی‌ترین مراکز آموزش زبان کشور تبدیل شده‌ایم. ما معتقدیم یادگیری زبان محدودیت سنی ندارد؛ از کودک تا بزرگسال، از مبتدی تا پیشرفته، همه می‌توانند در بریجینو رشد کنند. هر زبان‌آموز برای ما یک پل تازه به دنیاست.</p>
+      </div>
+      <div class="about-card border-red scroll-anim" data-delay="0.2">
+        <div class="card-icon red"><i class="ti ti-target"></i></div>
+        <h3 class="card-title">ماموریت ما</h3>
+        <p class="card-text">تعهد ما در بریجینو این است که هر زبان‌آموز با بهترین روش‌های نوین تدریس، در کنار اساتیدی مجرب و دلسوز، مسیر پیشرفت خود را با اطمینان طی کند. ما پشتیبانی کامل از لحظه ثبت‌نام تا رسیدن به هدف را تضمین می‌کنیم. موفقیت شما، موفقیت ماست.</p>
+      </div>
+    </div>
+
+    <!-- Row 2: Timeline -->
+    <div class="timeline-wrap scroll-anim" data-delay="0.3">
+      <h3 class="row-title">مسیر رشد بریجینو</h3>
+      <div class="timeline">
+        <div class="timeline-line"></div>
+        <div class="timeline-items">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1395</div>
+            <div class="tl-name">تاسیس بریجینو</div>
+            <div class="tl-desc">شروع با یک کلاس کوچک و یک رویا</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1397</div>
+            <div class="tl-name">گسترش دوره‌ها</div>
+            <div class="tl-desc">اضافه شدن سطوح مختلف و آموزش آنلاین</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-year">1400</div>
+            <div class="tl-name">پلتفرم دیجیتال</div>
+            <div class="tl-desc">راه‌اندازی سیستم آزمون و مشاوره آنلاین</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot tl-dot-active"></div>
+            <div class="tl-year">1405</div>
+            <div class="tl-name">امروز</div>
+            <div class="tl-desc">بیش از ۲۰۰۰ زبان‌آموز فعال</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Why Bridgino -->
+    <div class="why-section">
+      <h3 class="row-title center-text scroll-anim" data-delay="0">چرا بریجینو؟</h3>
+      <div class="three-col-grid">
+        <div class="why-card scroll-anim" data-delay="0.1">
+          <div class="why-icon"><i class="ti ti-user-check"></i></div>
+          <h4 class="why-title">اساتید مجرب و متخصص</h4>
+          <p class="why-text">تمامی اساتید بریجینو دارای مدارک معتبر بین‌المللی و سال‌ها تجربه تدریس هستند. آن‌ها نه‌تنها زبان می‌آموزند، بلکه اشتیاق یادگیری را در شما زنده می‌کنند.</p>
+        </div>
+        <div class="why-card scroll-anim" data-delay="0.2">
+          <div class="why-icon"><i class="ti ti-device-laptop"></i></div>
+          <h4 class="why-title">آموزش آنلاین و حضوری</h4>
+          <p class="why-text">با انعطاف کامل بین کلاس‌های حضوری و آنلاین، یادگیری را با سبک زندگی خود هماهنگ کنید. جایی که باشید، بریجینو همراه شماست.</p>
+        </div>
+        <div class="why-card scroll-anim" data-delay="0.3">
+          <div class="why-icon"><i class="ti ti-school"></i></div>
+          <h4 class="why-title">محیط دوستانه و انگیزشی</h4>
+          <p class="why-text">در بریجینو محیطی گرم و انگیزشی ایجاد کرده‌ایم که هر زبان‌آموز با اطمینان و شادابی پیشرفت کند. یادگیری اینجا لذت‌بخش است.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: Stats -->
+    <div class="stats-band scroll-anim" data-delay="0.1">
+      <div class="stat-big">
+        <span class="stat-big-num blue" data-target="2000" data-prefix="+">۰</span>
+        <span class="stat-big-label">زبان‌آموز فعال</span>
+      </div>
+      <div class="stat-big">
+        <span class="stat-big-num red" data-target="50" data-prefix="+">۰</span>
+        <span class="stat-big-label">دوره تخصصی</span>
+      </div>
+      <div class="stat-big">
+        <span class="stat-big-num blue" data-target="8" data-prefix="+">۰</span>
+        <span class="stat-big-label">سال تجربه</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// ── Scroll animations ──
+const animEls = document.querySelectorAll('.scroll-anim');
+const animObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const delay = parseFloat(entry.target.dataset.delay || 0);
+    setTimeout(() => entry.target.classList.add('visible'), delay * 1000);
+    animObs.unobserve(entry.target);
+  });
+}, { threshold: 0.15 });
+animEls.forEach(el => animObs.observe(el));
+
+// ── About section stat counters ──
+function toFN(n){ return n.toString().replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+const aboutStats = document.querySelectorAll('.stat-big-num[data-target]');
+const sObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.target);
+    const prefix = el.dataset.prefix || '';
+    let cur = 0; const inc = target / 120;
+    const t = setInterval(() => {
+      cur += inc;
+      if (cur >= target) { cur = target; clearInterval(t); }
+      el.textContent = prefix + toFN(Math.floor(cur));
+    }, 16);
+    sObs.unobserve(el);
+  });
+}, { threshold: 0.4 });
+aboutStats.forEach(s => sObs.observe(s));
+</script>
+
+</body>
+</html>

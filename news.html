@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اخبار | بریجینو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<link rel="stylesheet" href="shared.css">
+</head>
+<body>
+<script src="navbar.js"></script>
+<!-- SECTION 7: اخبار و رویدادها -->
+<style>
+.news-section {
+  background: #F8F9FA;
+  padding: 100px 0;
+  font-family: 'Vazirmatn', sans-serif;
+  direction: rtl;
+}
+.news-container {
+  max-width: 1180px; margin: 0 auto; padding: 0 5vw;
+  display: flex; flex-direction: column; gap: 48px;
+}
+
+/* تیتر */
+.news-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.news-title { font-size: 36px; font-weight: 700; color: #1A1A2E; margin: 0; }
+.news-divider { width: 60px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1A3A6E,#C0392B); }
+.news-sub { font-size: 17px; color: #4A5568; }
+
+/* فیلتر */
+.news-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.news-filter-btn {
+  padding: 8px 20px; border-radius: 20px;
+  border: 1.5px solid #E2E8F0; background: #fff;
+  color: #4A5568; font-family: 'Vazirmatn', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.news-filter-btn:hover { border-color: #1A3A6E; color: #1A3A6E; }
+.news-filter-btn.nf-active { background: #1A3A6E; border-color: #1A3A6E; color: #fff; }
+
+/* بدنه */
+.news-body {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ── خبر ویژه ── */
+.news-featured {
+  position: relative;
+  height: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0D2145 0%, #1A3A6E 60%, #1a4a8e 100%);
+  cursor: pointer;
+}
+/* دکوراسیون داخلی */
+.news-featured-deco {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.news-featured-deco::before {
+  content: ''; position: absolute;
+  width: 280px; height: 280px; top: -60px; left: -60px;
+  background: radial-gradient(circle, rgba(192,57,43,0.18) 0%, transparent 70%);
+  filter: blur(40px);
+}
+.news-featured-deco::after {
+  content: ''; position: absolute;
+  width: 200px; height: 200px; bottom: 20px; right: -40px;
+  background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+  filter: blur(30px);
+}
+/* overlay */
+.news-featured-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 65%;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+}
+/* محتوا */
+.news-featured-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 24px; display: flex; flex-direction: column; gap: 10px;
+}
+.news-featured-badge {
+  display: inline-block; width: fit-content;
+  background: #C0392B; color: #fff;
+  border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700;
+}
+.news-featured-title {
+  font-size: 22px; font-weight: 700; color: #fff;
+  line-height: 1.4; max-width: 90%;
+}
+.news-featured-desc {
+  font-size: 14px; color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+}
+.news-featured-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 4px;
+}
+.news-featured-date { font-size: 12px; color: rgba(255,255,255,0.6); }
+.btn-news-more {
+  border: 1px solid rgba(255,255,255,0.4); color: #fff;
+  background: transparent; border-radius: 8px; padding: 6px 16px;
+  font-family: 'Vazirmatn', sans-serif; font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: background 0.3s; text-decoration: none;
+}
+.btn-news-more:hover { background: rgba(255,255,255,0.15); }
+
+/* ── خبرهای کوچک ── */
+.news-list { display: flex; flex-direction: column; gap: 12px; }
+
+.news-item {
+  display: flex; gap: 12px; align-items: center;
+  background: #fff; border: 1px solid #E0E0E0;
+  border-radius: 12px; padding: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer; text-decoration: none;
+}
+.news-item:hover {
+  box-shadow: 0 4px 16px rgba(26,58,110,0.10);
+  transform: translateX(-4px);
+}
+.news-thumb {
+  width: 70px; height: 70px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 24px; color: #fff;
+}
+.nt1 { background: linear-gradient(135deg,#1A3A6E,#2a5aa0); }
+.nt2 { background: linear-gradient(135deg,#C0392B,#e74c3c); }
+.nt3 { background: linear-gradient(135deg,#1A3A6E,#1a4a8e); }
+.nt4 { background: linear-gradient(135deg,#2E7D32,#4CAF50); }
+
+.news-item-text { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.news-item-badge {
+  display: inline-block; width: fit-content;
+  padding: 2px 8px; border-radius: 10px;
+  font-size: 10px; font-weight: 700;
+}
+.nb1 { background: #EEF4FF; color: #1A3A6E; }
+.nb2 { background: #FFEBEE; color: #C0392B; }
+.nb3 { background: #EEF4FF; color: #1A3A6E; }
+.nb4 { background: #E8F5E9; color: #2E7D32; }
+
+.news-item-title {
+  font-size: 13px; font-weight: 700; color: #1A1A2E;
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
+.news-item-date { font-size: 11px; color: #AAAAAA; }
+
+/* دکمه پایین */
+.news-cta { display: flex; justify-content: center; }
+.btn-news-all {
+  padding: 12px 32px; border-radius: 10px;
+  border: 1.5px solid #1A3A6E; color: #1A3A6E;
+  background: transparent; font-family: 'Vazirmatn', sans-serif;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  text-decoration: none; transition: all 0.3s;
+}
+.btn-news-all:hover { background: #1A3A6E; color: #fff; }
+
+/* انیمیشن */
+.s7-anim { opacity: 0; transform: translateY(36px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.s7-anim.slide-r { transform: translateX(36px); }
+.s7-anim.slide-l { transform: translateX(-36px); }
+.s7-anim.visible { opacity: 1; transform: translate(0); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .news-title { font-size: 26px; }
+  .news-body { grid-template-columns: 1fr; }
+  .news-featured { height: 280px; }
+  .news-featured-desc { display: none; }
+  .news-thumb { width: 60px; height: 60px; font-size: 20px; }
+  .news-cta .btn-news-all { width: 100%; text-align: center; }
+  .news-filters { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 4px; }
+}
+</style>
+
+<section class="news-section" id="news-section">
+  <div class="news-container">
+
+    <!-- تیتر -->
+    <div class="news-header s7-anim">
+      <h2 class="news-title">اخبار و رویدادهای بریجینو</h2>
+      <div class="news-divider"></div>
+      <p class="news-sub">آخرین اخبار، رویدادها و اطلاعیه‌های موسسه</p>
+    </div>
+
+    <!-- فیلتر -->
+    <div class="news-filters s7-anim">
+      <button class="news-filter-btn nf-active" data-news="all">همه</button>
+      <button class="news-filter-btn" data-news="institute">اخبار موسسه</button>
+      <button class="news-filter-btn" data-news="event">رویدادها</button>
+      <button class="news-filter-btn" data-news="notice">اطلاعیه</button>
+    </div>
+
+    <!-- بدنه -->
+    <div class="news-body">
+
+      <!-- خبر ویژه -->
+      <div class="news-featured s7-anim slide-r" data-news="institute">
+        <div class="news-featured-deco"></div>
+        <div class="news-featured-overlay"></div>
+        <div class="news-featured-content">
+          <span class="news-featured-badge">ویژه</span>
+          <div class="news-featured-title">بریجینو در نمایشگاه آموزشی تهران حضور یافت</div>
+          <div class="news-featured-desc">موسسه بریجینو در بیست‌وسومین نمایشگاه بین‌المللی آموزش و یادگیری تهران شرکت کرد و با استقبال گسترده‌ای مواجه شد.</div>
+          <div class="news-featured-row">
+            <span class="news-featured-date">۱۵ فروردین ۱۴۰۴</span>
+            <a href="#" class="btn-news-more">ادامه مطلب ←</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- خبرهای کوچک -->
+      <div class="news-list">
+
+        <a class="news-item s7-anim slide-l" href="#" data-news="notice">
+          <div class="news-thumb nt1"><i class="ti ti-bell"></i></div>
+          <div class="news-item-text">
+            <span class="news-item-badge nb1">اطلاعیه</span>
+            <div class="news-item-title">ثبت‌نام ترم بهار ۱۴۰۴ آغاز شد</div>
+            <span class="news-item-date">۱۰ فروردین ۱۴۰۴</span>
+          </div>
+        </a>
+
+        <a class="news-item s7-anim slide-l" href="#" data-news="event">
+          <div class="news-thumb nt2"><i class="ti ti-trophy"></i></div>
+          <div class="news-item-text">
+            <span class="news-item-badge nb2">رویداد</span>
+            <div class="news-item-title">مسابقه مکالمه انگلیسی بریجینو — اردیبهشت ۱۴۰۴</div>
+            <span class="news-item-date">۵ فروردین ۱۴۰۴</span>
+          </div>
+        </a>
+
+        <a class="news-item s7-anim slide-l" href="#" data-news="institute">
+          <div class="news-thumb nt3"><i class="ti ti-users"></i></div>
+          <div class="news-item-text">
+            <span class="news-item-badge nb3">اخبار موسسه</span>
+            <div class="news-item-title">معرفی اساتید جدید موسسه در سال ۱۴۰۴</div>
+            <span class="news-item-date">۲۸ اسفند ۱۴۰۳</span>
+          </div>
+        </a>
+
+        <a class="news-item s7-anim slide-l" href="#" data-news="institute">
+          <div class="news-thumb nt4"><i class="ti ti-award"></i></div>
+          <div class="news-item-text">
+            <span class="news-item-badge nb4">موفقیت زبان‌آموزان</span>
+            <div class="news-item-title">زبان‌آموزان بریجینو در آزمون آیلتس نمره ۷ گرفتند</div>
+            <span class="news-item-date">۲۰ اسفند ۱۴۰۳</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  // IntersectionObserver
+  const els = document.querySelectorAll('.s7-anim');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 90);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+
+  // فیلتر
+  document.querySelectorAll('.news-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.news-filter-btn').forEach(b => b.classList.remove('nf-active'));
+      btn.classList.add('nf-active');
+      const cat = btn.dataset.news;
+      // خبر ویژه
+      const featured = document.querySelector('.news-featured');
+      if (cat === 'all' || featured.dataset.news === cat) {
+        featured.style.opacity = '1'; featured.style.transform = '';
+      } else {
+        featured.style.opacity = '0.2'; featured.style.transform = 'scale(0.97)';
+      }
+      featured.style.transition = 'all 0.35s ease';
+      // خبرهای کوچک
+      document.querySelectorAll('.news-item').forEach(item => {
+        const match = cat === 'all' || item.dataset.news === cat;
+        item.style.transition = 'all 0.35s ease';
+        item.style.opacity = match ? '1' : '0.2';
+        item.style.transform = match ? '' : 'scale(0.97)';
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
