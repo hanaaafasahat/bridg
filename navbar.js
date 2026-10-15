@@ -12,7 +12,7 @@
     { href: 'consultation.html', label: 'مشاوره' },
     { href: 'courses.html', label: 'دوره‌ها' },
     { href: 'calendar.html', label: 'تقویم ترمی' },
-    { href: 'news.html', label: 'اخبار' },
+    { href: 'news.html', label: 'معرفی اساتید' },
     { href: 'social.html', label: 'شبکه‌های اجتماعی' },
     { href: 'contact.html', label: 'تماس با ما' },
   ];

@@ -242,8 +242,8 @@ body {
 
         <a href="news.html" class="nav-card red-accent">
           <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2V9"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></div>
-          <div class="card-title">اخبار</div>
-          <div class="card-desc">آخرین رویدادها</div>
+          <div class="card-title">معرفی اساتید</div>
+          <div class="card-desc">همراهان شما در یادگیری</div>
         </a>
 
         <a href="social.html" class="nav-card">
@@ -287,9 +287,9 @@ function animateCounter(el, target) {
 const statsObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      animateCounter(document.getElementById('c1'), 2000);
-      animateCounter(document.getElementById('c2'), 50);
-      animateCounter(document.getElementById('c3'), 8);
+      animateCounter(document.getElementById('c1'), 5000);
+      animateCounter(document.getElementById('c2'), 30);
+      animateCounter(document.getElementById('c3'), 15);
       statsObserver.disconnect();
     }
   });

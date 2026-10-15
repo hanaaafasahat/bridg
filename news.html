@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>اخبار | بریجینو</title>
+<title>معرفی اساتید | بریجینو</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -12,8 +12,9 @@
 </head>
 <body>
 <script src="navbar.js"></script>
-<!-- SECTION 7: اخبار و رویدادها -->
+<!-- معرفی اساتید -->
 <style>
+body, button, .news-modal-overlay, .news-modal { font-family: 'Vazirmatn', sans-serif; }
 .news-section {
   background: #F8F9FA;
   padding: 100px 0;
@@ -31,125 +32,57 @@
 .news-divider { width: 60px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1A3A6E,#C0392B); }
 .news-sub { font-size: 17px; color: #4A5568; }
 
-/* فیلتر */
-.news-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-.news-filter-btn {
-  padding: 8px 20px; border-radius: 20px;
-  border: 1.5px solid #E2E8F0; background: #fff;
-  color: #4A5568; font-family: 'Vazirmatn', sans-serif;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s ease;
-}
-.news-filter-btn:hover { border-color: #1A3A6E; color: #1A3A6E; }
-.news-filter-btn.nf-active { background: #1A3A6E; border-color: #1A3A6E; color: #fff; }
-
 /* بدنه */
 .news-body {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
   gap: 24px;
   align-items: start;
 }
 
-/* ── خبر ویژه ── */
-.news-featured {
-  position: relative;
-  height: 420px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0D2145 0%, #1A3A6E 60%, #1a4a8e 100%);
-  cursor: pointer;
+/* ── کارت اساتید ── */
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
-/* دکوراسیون داخلی */
-.news-featured-deco {
-  position: absolute; inset: 0; pointer-events: none;
-}
-.news-featured-deco::before {
-  content: ''; position: absolute;
-  width: 280px; height: 280px; top: -60px; left: -60px;
-  background: radial-gradient(circle, rgba(192,57,43,0.18) 0%, transparent 70%);
-  filter: blur(40px);
-}
-.news-featured-deco::after {
-  content: ''; position: absolute;
-  width: 200px; height: 200px; bottom: 20px; right: -40px;
-  background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
-  filter: blur(30px);
-}
-/* overlay */
-.news-featured-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 65%;
-  background: linear-gradient(transparent, rgba(0,0,0,0.85));
-}
-/* محتوا */
-.news-featured-content {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 24px; display: flex; flex-direction: column; gap: 10px;
-}
-.news-featured-badge {
-  display: inline-block; width: fit-content;
-  background: #C0392B; color: #fff;
-  border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 700;
-}
-.news-featured-title {
-  font-size: 22px; font-weight: 700; color: #fff;
-  line-height: 1.4; max-width: 90%;
-}
-.news-featured-desc {
-  font-size: 14px; color: rgba(255,255,255,0.8);
-  line-height: 1.7;
-}
-.news-featured-row {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-top: 4px;
-}
-.news-featured-date { font-size: 12px; color: rgba(255,255,255,0.6); }
-.btn-news-more {
-  border: 1px solid rgba(255,255,255,0.4); color: #fff;
-  background: transparent; border-radius: 8px; padding: 6px 16px;
-  font-family: 'Vazirmatn', sans-serif; font-size: 13px; font-weight: 700;
-  cursor: pointer; transition: background 0.3s; text-decoration: none;
-}
-.btn-news-more:hover { background: rgba(255,255,255,0.15); }
-
-/* ── خبرهای کوچک ── */
-.news-list { display: flex; flex-direction: column; gap: 12px; }
 
 .news-item {
-  display: flex; gap: 12px; align-items: center;
+  display: flex; gap: 14px; align-items: center;
   background: #fff; border: 1px solid #E0E0E0;
   border-radius: 12px; padding: 14px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   transition: box-shadow 0.3s, transform 0.3s;
   cursor: pointer; text-decoration: none;
+  width: 100%; text-align: right;
+  font-family: 'Vazirmatn', sans-serif;
 }
 .news-item:hover {
   box-shadow: 0 4px 16px rgba(26,58,110,0.10);
   transform: translateX(-4px);
 }
+
+/* عکس مربعی استاد (بدون پس‌زمینه رنگی/فیلتر) */
 .news-thumb {
-  width: 70px; height: 70px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 24px; color: #fff;
+  width: 90px; height: 90px; border-radius: 8px;
+  flex-shrink: 0; overflow: hidden;
+  background: #EDEFF2;
 }
-.nt1 { background: linear-gradient(135deg,#1A3A6E,#2a5aa0); }
-.nt2 { background: linear-gradient(135deg,#C0392B,#e74c3c); }
-.nt3 { background: linear-gradient(135deg,#1A3A6E,#1a4a8e); }
-.nt4 { background: linear-gradient(135deg,#2E7D32,#4CAF50); }
+.news-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
 
 .news-item-text { flex: 1; display: flex; flex-direction: column; gap: 5px; }
 .news-item-badge {
   display: inline-block; width: fit-content;
   padding: 2px 8px; border-radius: 10px;
   font-size: 10px; font-weight: 700;
+  background: #EEF4FF; color: #1A3A6E;
 }
-.nb1 { background: #EEF4FF; color: #1A3A6E; }
-.nb2 { background: #FFEBEE; color: #C0392B; }
-.nb3 { background: #EEF4FF; color: #1A3A6E; }
-.nb4 { background: #E8F5E9; color: #2E7D32; }
 
 .news-item-title {
-  font-size: 13px; font-weight: 700; color: #1A1A2E;
+  font-size: 14px; font-weight: 700; color: #1A1A2E;
   line-height: 1.5;
   overflow: hidden;
   display: -webkit-box;
@@ -157,18 +90,7 @@
   -webkit-box-orient: vertical;
   line-clamp: 2;
 }
-.news-item-date { font-size: 11px; color: #AAAAAA; }
-
-/* دکمه پایین */
-.news-cta { display: flex; justify-content: center; }
-.btn-news-all {
-  padding: 12px 32px; border-radius: 10px;
-  border: 1.5px solid #1A3A6E; color: #1A3A6E;
-  background: transparent; font-family: 'Vazirmatn', sans-serif;
-  font-size: 14px; font-weight: 700; cursor: pointer;
-  text-decoration: none; transition: all 0.3s;
-}
-.btn-news-all:hover { background: #1A3A6E; color: #fff; }
+.news-item-date { font-size: 11.5px; color: #8A8F98; }
 
 /* انیمیشن */
 .s7-anim { opacity: 0; transform: translateY(36px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
@@ -179,12 +101,64 @@
 /* Responsive */
 @media (max-width: 768px) {
   .news-title { font-size: 26px; }
-  .news-body { grid-template-columns: 1fr; }
-  .news-featured { height: 280px; }
-  .news-featured-desc { display: none; }
-  .news-thumb { width: 60px; height: 60px; font-size: 20px; }
-  .news-cta .btn-news-all { width: 100%; text-align: center; }
-  .news-filters { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 4px; }
+  .news-list { grid-template-columns: 1fr; }
+  .news-thumb { width: 80px; height: 80px; }
+}
+
+/* ── مودال معرفی کامل استاد ── */
+.news-modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(13,33,69,0.55);
+  backdrop-filter: blur(3px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.news-modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+.news-modal {
+  background: #fff; border-radius: 16px;
+  max-width: 560px; width: 100%;
+  max-height: 85vh; overflow-y: auto;
+  padding: 32px; position: relative;
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+.news-modal-overlay.open .news-modal { transform: translateY(0) scale(1); }
+
+.news-modal-close {
+  position: absolute; top: 18px; left: 18px;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: none; background: #F1F3F5; color: #4A5568;
+  font-size: 18px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.2s;
+}
+.news-modal-close:hover { background: #E2E8F0; }
+
+.news-modal-head {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 18px;
+}
+.news-modal-thumb {
+  width: 96px; height: 96px; border-radius: 10px; flex-shrink: 0;
+  overflow: hidden; background: #EDEFF2;
+}
+.news-modal-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.news-modal-badge {
+  display: inline-block; width: fit-content;
+  padding: 3px 10px; border-radius: 10px;
+  font-size: 11px; font-weight: 700; margin-bottom: 6px;
+  background: #EEF4FF; color: #1A3A6E;
+}
+.news-modal-date { font-size: 12.5px; color: #8A8F98; }
+
+.news-modal-title {
+  font-size: 20px; font-weight: 700; color: #1A1A2E;
+  line-height: 1.5; margin: 0 0 16px;
+}
+.news-modal-content {
+  font-size: 14.5px; line-height: 2; color: #4A5568;
 }
 </style>
 
@@ -193,81 +167,95 @@
 
     <!-- تیتر -->
     <div class="news-header s7-anim">
-      <h2 class="news-title">اخبار و رویدادهای بریجینو</h2>
+      <h2 class="news-title">معرفی اساتید بریجینو</h2>
       <div class="news-divider"></div>
-      <p class="news-sub">آخرین اخبار، رویدادها و اطلاعیه‌های موسسه</p>
-    </div>
-
-    <!-- فیلتر -->
-    <div class="news-filters s7-anim">
-      <button class="news-filter-btn nf-active" data-news="all">همه</button>
-      <button class="news-filter-btn" data-news="institute">اخبار موسسه</button>
-      <button class="news-filter-btn" data-news="event">رویدادها</button>
-      <button class="news-filter-btn" data-news="notice">اطلاعیه</button>
+      <p class="news-sub">با اساتید باتجربه آکادمی زبان بریجینو آشنا شوید</p>
     </div>
 
     <!-- بدنه -->
     <div class="news-body">
 
-      <!-- خبر ویژه -->
-      <div class="news-featured s7-anim slide-r" data-news="institute">
-        <div class="news-featured-deco"></div>
-        <div class="news-featured-overlay"></div>
-        <div class="news-featured-content">
-          <span class="news-featured-badge">ویژه</span>
-          <div class="news-featured-title">بریجینو در نمایشگاه آموزشی تهران حضور یافت</div>
-          <div class="news-featured-desc">موسسه بریجینو در بیست‌وسومین نمایشگاه بین‌المللی آموزش و یادگیری تهران شرکت کرد و با استقبال گسترده‌ای مواجه شد.</div>
-          <div class="news-featured-row">
-            <span class="news-featured-date">۱۵ فروردین ۱۴۰۴</span>
-            <a href="#" class="btn-news-more">ادامه مطلب ←</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- خبرهای کوچک -->
       <div class="news-list">
 
-        <a class="news-item s7-anim slide-l" href="#" data-news="notice">
-          <div class="news-thumb nt1"><i class="ti ti-bell"></i></div>
+        <!-- شیما یاهو -->
+        <button type="button" class="news-item s7-anim slide-l"
+          data-img="images/shima-yahoo.jpg"
+          data-badge="مدرس نوجوان و بزرگسال"
+          data-title="شیما یاهو" data-date="۳ سال سابقه تدریس"
+          data-content="شیما یاهو با پیشینه‌ی تحصیلی در رشته‌ی سلولی و مولکولی، سه سال است که زبان انگلیسی تدریس می‌کند. او در بریجینو همراه نوجوانان و بزرگسالانی است که می‌خواهند زبان را با انگیزه و اعتمادبه‌نفس یاد بگیرند و از مسیر یادگیری لذت ببرند.">
+          <div class="news-thumb"><img src="images/shima-yahoo.jpg" alt="شیما یاهو"></div>
           <div class="news-item-text">
-            <span class="news-item-badge nb1">اطلاعیه</span>
-            <div class="news-item-title">ثبت‌نام ترم بهار ۱۴۰۴ آغاز شد</div>
-            <span class="news-item-date">۱۰ فروردین ۱۴۰۴</span>
+            <span class="news-item-badge">مدرس نوجوان و بزرگسال</span>
+            <div class="news-item-title">شیما یاهو</div>
+            <span class="news-item-date">۳ سال سابقه تدریس</span>
           </div>
-        </a>
+        </button>
 
-        <a class="news-item s7-anim slide-l" href="#" data-news="event">
-          <div class="news-thumb nt2"><i class="ti ti-trophy"></i></div>
+        <!-- سوگند مالکی -->
+        <button type="button" class="news-item s7-anim slide-l"
+          data-img="images/sogand-maleki.jpg"
+          data-badge="مدرس کودک و نوجوان"
+          data-title="سوگند مالکی" data-date="۳ سال سابقه تدریس"
+          data-content="سوگند مالکی که دانش‌آموخته‌ی زبان آلمانی است، سه سال است که هم انگلیسی و هم آلمانی تدریس می‌کند. کلاس‌های او برای کودکان و نوجوانان فضایی شاد و پرانرژی دارد تا یادگیری زبان برایشان یک بازی دوست‌داشتنی باشد.">
+          <div class="news-thumb"><img src="images/sogand-maleki.jpg" alt="سوگند مالکی"></div>
           <div class="news-item-text">
-            <span class="news-item-badge nb2">رویداد</span>
-            <div class="news-item-title">مسابقه مکالمه انگلیسی بریجینو — اردیبهشت ۱۴۰۴</div>
-            <span class="news-item-date">۵ فروردین ۱۴۰۴</span>
+            <span class="news-item-badge">مدرس کودک و نوجوان</span>
+            <div class="news-item-title">سوگند مالکی</div>
+            <span class="news-item-date">۳ سال سابقه تدریس</span>
           </div>
-        </a>
+        </button>
 
-        <a class="news-item s7-anim slide-l" href="#" data-news="institute">
-          <div class="news-thumb nt3"><i class="ti ti-users"></i></div>
+        <!-- کیمیا کلانتری -->
+        <button type="button" class="news-item s7-anim slide-l"
+          data-img="images/kimia-kalantari.jpg"
+          data-badge="مدرس کودک و نوجوان"
+          data-title="کیمیا کلانتری" data-date="۵ سال سابقه تدریس"
+          data-content="کیمیا کلانتری مترجم زبان انگلیسی است و پنج سال تجربه‌ی تدریس دارد. او در کلاس‌های کودکان و نوجوانان بریجینو با صبر و روحیه‌ی مثبت کنار بچه‌ها می‌ماند تا قدم‌به‌قدم زبان را بشناسند و از حرف زدن به انگلیسی نترسند.">
+          <div class="news-thumb"><img src="images/kimia-kalantari.jpg" alt="کیمیا کلانتری"></div>
           <div class="news-item-text">
-            <span class="news-item-badge nb3">اخبار موسسه</span>
-            <div class="news-item-title">معرفی اساتید جدید موسسه در سال ۱۴۰۴</div>
-            <span class="news-item-date">۲۸ اسفند ۱۴۰۳</span>
+            <span class="news-item-badge">مدرس کودک و نوجوان</span>
+            <div class="news-item-title">کیمیا کلانتری</div>
+            <span class="news-item-date">۵ سال سابقه تدریس</span>
           </div>
-        </a>
+        </button>
 
-        <a class="news-item s7-anim slide-l" href="#" data-news="institute">
-          <div class="news-thumb nt4"><i class="ti ti-award"></i></div>
+        <!-- نسرین ابراهیمی -->
+        <button type="button" class="news-item s7-anim slide-l"
+          data-img="images/nasrin-ebrahimi.jpg"
+          data-badge="مدرس کودک و نوجوان"
+          data-title="نسرین ابراهیمی" data-date="۴ سال سابقه تدریس"
+          data-content="نسرین ابراهیمی کارشناس آموزش ابتدایی از دانشگاه فرهنگیان است و چهار سال تجربه‌ی تدریس زبان انگلیسی دارد. نگاه آموزشی او به کودکان باعث می‌شود کلاس‌هایش صمیمی، منظم و پر از تشویق باشد.">
+          <div class="news-thumb"><img src="images/nasrin-ebrahimi.jpg" alt="نسرین ابراهیمی"></div>
           <div class="news-item-text">
-            <span class="news-item-badge nb4">موفقیت زبان‌آموزان</span>
-            <div class="news-item-title">زبان‌آموزان بریجینو در آزمون آیلتس نمره ۷ گرفتند</div>
-            <span class="news-item-date">۲۰ اسفند ۱۴۰۳</span>
+            <span class="news-item-badge">مدرس کودک و نوجوان</span>
+            <div class="news-item-title">نسرین ابراهیمی</div>
+            <span class="news-item-date">۴ سال سابقه تدریس</span>
           </div>
-        </a>
+        </button>
 
       </div>
     </div>
 
   </div>
 </section>
+
+<!-- مودال نمایش معرفی کامل استاد -->
+<div class="news-modal-overlay" id="news-modal-overlay">
+  <div class="news-modal">
+    <button type="button" class="news-modal-close" id="news-modal-close" aria-label="بستن">
+      <i class="ti ti-x"></i>
+    </button>
+    <div class="news-modal-head">
+      <div class="news-modal-thumb"><img id="news-modal-img" src="" alt=""></div>
+      <div>
+        <span class="news-modal-badge" id="news-modal-badge"></span><br>
+        <span class="news-modal-date" id="news-modal-date"></span>
+      </div>
+    </div>
+    <h3 class="news-modal-title" id="news-modal-title"></h3>
+    <p class="news-modal-content" id="news-modal-content"></p>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -283,29 +271,34 @@
   }, { threshold: 0.1 });
   els.forEach(el => io.observe(el));
 
-  // فیلتر
-  document.querySelectorAll('.news-filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.news-filter-btn').forEach(b => b.classList.remove('nf-active'));
-      btn.classList.add('nf-active');
-      const cat = btn.dataset.news;
-      // خبر ویژه
-      const featured = document.querySelector('.news-featured');
-      if (cat === 'all' || featured.dataset.news === cat) {
-        featured.style.opacity = '1'; featured.style.transform = '';
-      } else {
-        featured.style.opacity = '0.2'; featured.style.transform = 'scale(0.97)';
-      }
-      featured.style.transition = 'all 0.35s ease';
-      // خبرهای کوچک
-      document.querySelectorAll('.news-item').forEach(item => {
-        const match = cat === 'all' || item.dataset.news === cat;
-        item.style.transition = 'all 0.35s ease';
-        item.style.opacity = match ? '1' : '0.2';
-        item.style.transform = match ? '' : 'scale(0.97)';
-      });
+  // مودال
+  const overlay = document.getElementById('news-modal-overlay');
+  const modalImg = document.getElementById('news-modal-img');
+  const modalBadge = document.getElementById('news-modal-badge');
+  const modalDate = document.getElementById('news-modal-date');
+  const modalTitle = document.getElementById('news-modal-title');
+  const modalContent = document.getElementById('news-modal-content');
+
+  document.querySelectorAll('.news-item').forEach(item => {
+    item.addEventListener('click', () => {
+      modalImg.src = item.dataset.img;
+      modalImg.alt = item.dataset.title;
+      modalBadge.textContent = item.dataset.badge;
+      modalDate.textContent = item.dataset.date;
+      modalTitle.textContent = item.dataset.title;
+      modalContent.textContent = item.dataset.content;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
     });
   });
+
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('news-modal-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 })();
 </script>
 

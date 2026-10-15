@@ -31,21 +31,6 @@
 .cal-divider { width: 60px; height: 3px; border-radius: 2px; background: linear-gradient(90deg,#1A3A6E,#C0392B); }
 .cal-sub { font-size: 17px; color: #4A5568; }
 
-/* فیلتر */
-.cal-filters { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-.cal-filter-btn {
-  padding: 8px 20px; border-radius: 20px;
-  border: 1.5px solid #E2E8F0; background: #fff;
-  color: #4A5568; font-family: 'Vazirmatn', sans-serif;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s ease; white-space: nowrap;
-}
-.cal-filter-btn:hover { border-color: #1A3A6E; color: #1A3A6E; }
-.cal-filter-btn.active-all   { background: #1A3A6E; border-color: #1A3A6E; color: #fff; }
-.cal-filter-btn.active-open  { background: #4CAF50; border-color: #4CAF50; color: #fff; }
-.cal-filter-btn.active-ltd   { background: #FF9800; border-color: #FF9800; color: #fff; }
-.cal-filter-btn.active-early { background: #1A3A6E; border-color: #1A3A6E; color: #fff; }
-
 /* گرید */
 .cal-grid {
   display: grid;
@@ -61,14 +46,13 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   overflow: hidden;
   display: flex; flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.35s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
 }
 .cal-card:not(.full):hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(26,58,110,0.10);
 }
-.cal-card.cal-filtered-out { opacity: 0.2; transform: scale(0.97); }
 
 /* نوار رنگی سمت راست */
 .cal-card.status-open  { border-right: 4px solid #4CAF50; }
@@ -167,7 +151,6 @@
 @media (max-width: 768px) {
   .cal-title { font-size: 26px; }
   .cal-grid { grid-template-columns: 1fr; }
-  .cal-filters { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 4px; }
   .cal-banner { flex-direction: column; align-items: stretch; text-align: center; padding: 20px; }
   .btn-cal-banner { text-align: center; }
 }
@@ -183,19 +166,11 @@
       <p class="cal-sub">ترم‌های در حال ثبت‌نام و آینده نزدیک</p>
     </div>
 
-    <!-- فیلتر -->
-    <div class="cal-filters s6-anim">
-      <button class="cal-filter-btn active-all" data-cal="all">همه</button>
-      <button class="cal-filter-btn" data-cal="open">باز</button>
-      <button class="cal-filter-btn" data-cal="ltd">محدود</button>
-      <button class="cal-filter-btn" data-cal="early">زود ثبت‌نام کن</button>
-    </div>
-
     <!-- گرید -->
     <div class="cal-grid">
 
       <!-- کارت ۱ — باز -->
-      <div class="cal-card status-open s6-anim" data-cal="open">
+      <div class="cal-card status-open s6-anim">
         <div class="cal-card-header">
           <div class="cal-card-title-row">
             <span class="cal-card-name">ترم بهار — انگلیسی مبتدی</span>
@@ -223,7 +198,7 @@
       </div>
 
       <!-- کارت ۲ — محدود -->
-      <div class="cal-card status-ltd s6-anim" data-cal="ltd">
+      <div class="cal-card status-ltd s6-anim">
         <div class="cal-card-header">
           <div class="cal-card-title-row">
             <span class="cal-card-name">ترم بهار — آیلتس پیشرفته</span>
@@ -251,7 +226,7 @@
       </div>
 
       <!-- کارت ۳ — تکمیل ظرفیت -->
-      <div class="cal-card status-full full s6-anim" data-cal="full">
+      <div class="cal-card status-full full s6-anim">
         <div class="cal-card-header">
           <div class="cal-card-title-row">
             <span class="cal-card-name">ترم بهار — کودکان پایه</span>
@@ -279,7 +254,7 @@
       </div>
 
       <!-- کارت ۴ — زود ثبت‌نام کن -->
-      <div class="cal-card status-early s6-anim" data-cal="early">
+      <div class="cal-card status-early s6-anim">
         <div class="cal-card-header">
           <div class="cal-card-title-row">
             <span class="cal-card-name">ترم اردیبهشت — مکالمه متوسط</span>
@@ -307,7 +282,7 @@
       </div>
 
       <!-- کارت ۵ — باز -->
-      <div class="cal-card status-open s6-anim" data-cal="open">
+      <div class="cal-card status-open s6-anim">
         <div class="cal-card-header">
           <div class="cal-card-title-row">
             <span class="cal-card-name">ترم اردیبهشت — نوجوانان متوسط</span>
@@ -335,7 +310,7 @@
       </div>
 
       <!-- کارت ۶ — زود ثبت‌نام کن -->
-      <div class="cal-card status-early s6-anim" data-cal="early">
+      <div class="cal-card status-early s6-anim">
         <div class="cal-card-header">
           <div class="cal-card-title-row">
             <span class="cal-card-name">ترم خرداد — تافل پیشرفته</span>
@@ -402,25 +377,6 @@
     });
   }, { threshold: 0.3 });
   pbars.forEach(b => pbObs.observe(b));
-
-  // Filter
-  let active = 'all';
-  document.querySelectorAll('.cal-filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      active = btn.dataset.cal;
-      // reset classes
-      document.querySelectorAll('.cal-filter-btn').forEach(b => {
-        b.classList.remove('active-all','active-open','active-ltd','active-early');
-      });
-      const cls = { all:'active-all', open:'active-open', ltd:'active-ltd', early:'active-early' };
-      btn.classList.add(cls[active] || 'active-all');
-
-      document.querySelectorAll('.cal-card').forEach(card => {
-        const match = active === 'all' || card.dataset.cal === active;
-        card.classList.toggle('cal-filtered-out', !match);
-      });
-    });
-  });
 })();
 </script>
 
