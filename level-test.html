@@ -12,7 +12,7 @@
 </head>
 <body>
 <script src="navbar.js"></script>
-    
+
 <style>
 .lv2-section {
   position: relative;
@@ -56,7 +56,7 @@
 /* کارت‌های سطوح */
 .lv2-cards-section { display: flex; flex-direction: column; gap: 24px; }
 .lv2-cards-title { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.9); }
-.lv2-cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; align-items: start; }
+.lv2-cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; align-items: stretch; }
 
 .lv2-card {
   position: relative;
@@ -75,6 +75,17 @@
 .lv2-card-bt-orange { border-top: 3px solid #FF9800; }
 .lv2-card-bt-red    { border-top: 3px solid #C0392B; }
 
+/* درخشش پس‌زمینه‌ی هر کارت */
+.lv2-card::after {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 200px; height: 200px; border-top-left-radius: 16px;
+  pointer-events: none; z-index: 0;
+}
+.lv2-card-bt-green::after  { background: radial-gradient(circle at 0 0, rgba(76,175,80,0.30), transparent 70%); }
+.lv2-card-bt-orange::after { background: radial-gradient(circle at 0 0, rgba(255,152,0,0.30), transparent 70%); }
+.lv2-card-bt-red::after    { background: radial-gradient(circle at 0 0, rgba(192,57,43,0.32), transparent 70%); }
+.lv2-card > * { position: relative; z-index: 1; }
+
 .lv2-popular-badge {
   position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
   background: #FF9800; color: #fff;
@@ -82,10 +93,18 @@
   white-space: nowrap;
 }
 
-.lv2-card-icon { font-size: 32px; }
+/* آیکن داخل حباب */
+.lv2-icon-wrap {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.lv2-icon-wrap.bg-green  { background: rgba(76,175,80,0.18);  box-shadow: 0 0 0 6px rgba(76,175,80,0.08); }
+.lv2-icon-wrap.bg-orange { background: rgba(255,152,0,0.18);  box-shadow: 0 0 0 6px rgba(255,152,0,0.08); }
+.lv2-icon-wrap.bg-red    { background: rgba(192,57,43,0.22);  box-shadow: 0 0 0 6px rgba(192,57,43,0.10); }
+.lv2-card-icon { font-size: 30px; }
 .icon-green  { color: #4CAF50; }
 .icon-orange { color: #FF9800; }
-.icon-red    { color: #C0392B; }
+.icon-red    { color: #ff6b5b; }
 
 .lv2-card-title { font-size: 20px; font-weight: 700; color: #fff; }
 .lv2-card-en { display: block; font-family: 'Playfair Display', serif; font-style: italic; font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
@@ -94,43 +113,15 @@
 .lv2-skill { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.75); }
 .lv2-skill-check { width: 16px; height: 16px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #4CAF50; flex-shrink: 0; }
 
-/* نمونه سوال */
-.lv2-quiz-section { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-.lv2-quiz-header { text-align: center; display: flex; flex-direction: column; gap: 6px; }
-.lv2-quiz-title { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.9); }
-.lv2-quiz-sub   { font-size: 14px; color: rgba(255,255,255,0.5); }
-.lv2-quiz-card {
-  background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 16px; padding: 28px; width: 100%; max-width: 620px;
-  display: flex; flex-direction: column; gap: 16px;
-}
-.lv2-quiz-top { display: flex; justify-content: space-between; align-items: center; }
-.lv2-quiz-num { font-size: 12px; color: rgba(255,255,255,0.5); }
-.lv2-quiz-cat { padding: 4px 12px; border-radius: 20px; background: rgba(192,57,43,0.3); color: #ff9a8b; font-size: 11px; font-weight: 700; }
-.lv2-quiz-q { font-family: 'Playfair Display', serif; font-size: 18px; color: #fff; line-height: 1.5; }
-.lv2-opts { display: flex; flex-direction: column; gap: 10px; }
-.lv2-opt {
-  display: flex; align-items: center; gap: 12px;
-  border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px;
-  color: rgba(255,255,255,0.85); font-size: 14px; cursor: pointer; transition: background 0.2s;
-  direction: ltr; text-align: left;
-}
-.lv2-opt:hover { background: rgba(255,255,255,0.08); }
-.lv2-opt.correct { border-color: #4CAF50; background: rgba(76,175,80,0.15); color: #fff; }
-.lv2-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
-.lv2-opt.correct .lv2-radio { background: #4CAF50; border-color: #4CAF50; }
-.lv2-tick { font-size: 15px; color: #4CAF50; margin-left: auto; }
-.lv2-quiz-footer { font-size: 12px; color: rgba(255,255,255,0.45); text-align: center; }
-
 /* مراحل */
 .lv2-process { display: flex; flex-direction: column; gap: 40px; align-items: center; }
 .lv2-process-title { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.9); text-align: center; }
 .lv2-steps {
-  display: grid; grid-template-columns: repeat(4,1fr);
+  display: grid; grid-template-columns: repeat(5,1fr);
   gap: 0; position: relative; width: 100%;
 }
 .lv2-steps::before {
-  content: ''; position: absolute; top: 22px; right: 12.5%; left: 12.5%;
+  content: ''; position: absolute; top: 22px; right: 10%; left: 10%;
   height: 0; border-top: 2px dashed rgba(255,255,255,0.2); z-index: 0;
 }
 .lv2-step {
@@ -146,7 +137,7 @@
 }
 .lv2-step-icon { font-size: 22px; color: rgba(255,255,255,0.7); }
 .lv2-step-name { font-size: 14px; font-weight: 700; color: #fff; }
-.lv2-step-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.lv2-step-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6; }
 
 /* CTA */
 .lv2-cta { display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -181,7 +172,10 @@
   .lv2-step { flex-direction: row; text-align: right; gap: 16px; }
   .lv2-step-icon { display: none; }
   .btn-lv2-main { width: 100%; justify-content: center; padding: 16px 24px; font-size: 16px; }
-  .lv2-quiz-card { padding: 20px; }
+}
+@media (min-width: 769px) and (max-width: 960px) {
+  .lv2-steps { grid-template-columns: repeat(3,1fr); row-gap: 32px; }
+  .lv2-steps::before { display: none; }
 }
 </style>
 
@@ -193,9 +187,8 @@
 
     <!-- بخش ۱: تیتر -->
     <div class="lv2-header lv2-anim">
-      <span class="lv2-badge"><span class="lv2-badge-dot"></span>رایگان و آنلاین</span>
       <h2 class="lv2-title">سطح زبانی خود را بسنجید</h2>
-      <p class="lv2-sub">در کمتر از ۱۵ دقیقه بفهمید از کجا شروع کنید — آزمون تعیین سطح بریجینو کاملاً رایگان است</p>
+      <p class="lv2-sub">با پشتیبان بریجینو هماهنگ کنید تا در زمان دلخواه شما، سطح‌تان را بسنجد و بهترین دوره را معرفی کند</p>
     </div>
 
     <!-- بخش ۲: کارت‌های سطوح -->
@@ -205,7 +198,7 @@
 
         <!-- مبتدی -->
         <div class="lv2-card lv2-card-bt-green lv2-anim">
-          <i class="ti ti-seedling lv2-card-icon icon-green"></i>
+          <div class="lv2-icon-wrap bg-green"><svg class="lv2-card-icon icon-green" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-9"/><path d="M12 11c0-3.3-2.7-6-6-6 0 3.3 2.7 6 6 6z"/><path d="M12 13c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6z"/><path d="M8 20h8"/></svg></div>
           <div>
             <div class="lv2-card-title">مبتدی</div>
             <span class="lv2-card-en">Beginner / A1–A2</span>
@@ -221,7 +214,7 @@
         <!-- متوسط — برجسته -->
         <div class="lv2-card lv2-card-bt-orange featured lv2-anim">
           <span class="lv2-popular-badge">پرطرفدار ⭐</span>
-          <i class="ti ti-flame lv2-card-icon icon-orange"></i>
+          <div class="lv2-icon-wrap bg-orange"><i class="ti ti-flame lv2-card-icon icon-orange"></i></div>
           <div>
             <div class="lv2-card-title">متوسط</div>
             <span class="lv2-card-en">Intermediate / B1–B2</span>
@@ -236,7 +229,7 @@
 
         <!-- پیشرفته -->
         <div class="lv2-card lv2-card-bt-red lv2-anim">
-          <i class="ti ti-crown lv2-card-icon icon-red"></i>
+          <div class="lv2-icon-wrap bg-red"><i class="ti ti-crown lv2-card-icon icon-red"></i></div>
           <div>
             <div class="lv2-card-title">پیشرفته</div>
             <span class="lv2-card-en">Advanced / C1–C2</span>
@@ -252,59 +245,42 @@
       </div>
     </div>
 
-    <!-- بخش ۳: نمونه سوال -->
-    <div class="lv2-quiz-section">
-      <div class="lv2-quiz-header lv2-anim">
-        <div class="lv2-quiz-title">نمونه‌ای از سوالات آزمون</div>
-        <div class="lv2-quiz-sub">آزمون شامل ۳۰ سوال در ۴ مهارت است</div>
-      </div>
-      <div class="lv2-quiz-card lv2-anim">
-        <div class="lv2-quiz-top">
-          <span class="lv2-quiz-num">سوال ۱ از ۳۰</span>
-          <span class="lv2-quiz-cat">گرامر</span>
-        </div>
-        <div class="lv2-quiz-q">Which sentence is grammatically correct?</div>
-        <div class="lv2-opts" id="lv2-opts">
-          <div class="lv2-opt" data-ans="A"><div class="lv2-radio"></div><span>A) She go to school every day.</span></div>
-          <div class="lv2-opt correct" data-ans="B"><div class="lv2-radio"></div><span>B) She goes to school every day.</span><span class="lv2-tick">✓</span></div>
-          <div class="lv2-opt" data-ans="C"><div class="lv2-radio"></div><span>C) She going to school every day.</span></div>
-          <div class="lv2-opt" data-ans="D"><div class="lv2-radio"></div><span>D) She gone to school every day.</span></div>
-        </div>
-        <div class="lv2-quiz-footer">در آزمون واقعی ۳۰ سوال از ۴ مهارت خواهید داشت</div>
-      </div>
-    </div>
-
-    <!-- بخش ۴: فرآیند + CTA -->
+    <!-- بخش ۳: فرآیند + CTA -->
     <div class="lv2-process">
-      <div class="lv2-process-title lv2-anim">فرآیند آزمون تعیین سطح</div>
+      <div class="lv2-process-title lv2-anim">فرآیند تعیین سطح</div>
       <div class="lv2-steps">
         <div class="lv2-step lv2-anim">
           <div class="lv2-step-num">۱</div>
-          <i class="ti ti-clipboard-list lv2-step-icon"></i>
-          <div><div class="lv2-step-name">ثبت‌نام رایگان</div><div class="lv2-step-desc">فقط نام و شماره لازم است</div></div>
+          <i class="ti ti-headset lv2-step-icon"></i>
+          <div><div class="lv2-step-name">تماس با پشتیبان</div><div class="lv2-step-desc">از طریق دکمه‌ی پایین صفحه با پشتیبان در ارتباط باشید</div></div>
         </div>
         <div class="lv2-step lv2-anim">
           <div class="lv2-step-num">۲</div>
-          <i class="ti ti-writing lv2-step-icon"></i>
-          <div><div class="lv2-step-name">پاسخ به سوالات</div><div class="lv2-step-desc">۳۰ سوال در ۱۵ دقیقه</div></div>
+          <i class="ti ti-calendar-time lv2-step-icon"></i>
+          <div><div class="lv2-step-name">رزرو وقت</div><div class="lv2-step-desc">زمان مناسب خودتان را برای آزمون هماهنگ کنید</div></div>
         </div>
         <div class="lv2-step lv2-anim">
           <div class="lv2-step-num">۳</div>
-          <i class="ti ti-chart-bar lv2-step-icon"></i>
-          <div><div class="lv2-step-name">دریافت نتیجه</div><div class="lv2-step-desc">سطح شما فوری مشخص می‌شود</div></div>
+          <i class="ti ti-writing lv2-step-icon"></i>
+          <div><div class="lv2-step-name">آزمون تعیین سطح</div><div class="lv2-step-desc">پشتیبان در زمان رزروشده از شما تعیین سطح می‌گیرد</div></div>
         </div>
         <div class="lv2-step lv2-anim">
           <div class="lv2-step-num">۴</div>
-          <i class="ti ti-rocket lv2-step-icon"></i>
-          <div><div class="lv2-step-name">شروع یادگیری</div><div class="lv2-step-desc">مشاور ما با شما تماس می‌گیرد</div></div>
+          <i class="ti ti-chart-bar lv2-step-icon"></i>
+          <div><div class="lv2-step-name">اعلام نتیجه</div><div class="lv2-step-desc">سطح شما و نقاط قوت و ضعفتان را برایتان توضیح می‌دهد</div></div>
         </div>
+        <a href="courses.html" class="lv2-step lv2-anim" style="text-decoration:none">
+          <div class="lv2-step-num">۵</div>
+          <i class="ti ti-rocket lv2-step-icon"></i>
+          <div><div class="lv2-step-name">معرفی دوره</div><div class="lv2-step-desc">مناسب‌ترین دوره را برای شروع یادگیری پیشنهاد می‌دهد</div></div>
+        </a>
       </div>
       <div class="lv2-cta lv2-anim">
-        <a href="#" class="btn-lv2-main">
-          شروع تعیین سطح رایگان
-          <i class="ti ti-arrow-left"></i>
+        <a href="https://web.bale.ai/chat?uid=1770258310" target="_blank" rel="noopener" class="btn-lv2-main">
+          <i class="ti ti-message-circle"></i>
+          تماس با پشتیبان و رزرو وقت
         </a>
-        <span class="lv2-cta-note">بدون نیاز به ثبت‌نام قبلی — نتیجه فوری</span>
+        <span class="lv2-cta-note">فقط یک پیام کافی است</span>
       </div>
     </div>
 
@@ -313,7 +289,6 @@
 
 <script>
 (function(){
-  // IntersectionObserver
   const els = document.querySelectorAll('.lv2-anim');
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -324,21 +299,6 @@
     });
   }, { threshold: 0.1 });
   els.forEach(el => io.observe(el));
-
-  // Interactive quiz
-  document.querySelectorAll('.lv2-opt').forEach(opt => {
-    opt.addEventListener('click', () => {
-      document.querySelectorAll('.lv2-opt').forEach(o => {
-        o.classList.remove('correct');
-        const t = o.querySelector('.lv2-tick'); if (t) t.remove();
-        o.querySelector('.lv2-radio').style.cssText = '';
-      });
-      opt.classList.add('correct');
-      const tick = document.createElement('span');
-      tick.className = 'lv2-tick'; tick.textContent = '✓';
-      opt.appendChild(tick);
-    });
-  });
 })();
 </script>
 
